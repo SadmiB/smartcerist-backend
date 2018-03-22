@@ -1,6 +1,7 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import usersRoutes from './src/routes/usersRoutes';
+import homesRoutes from './src/routes/homesRoutes';
 import mongoose from 'mongoose';
 
 var app = express();
@@ -15,7 +16,7 @@ mongoose.Promise = global.Promise;
 mongoose.connect('mongodb://localhost/scdb');
 
 usersRoutes(app);
-
+homesRoutes(app);
 //serving static files
 app.use(express.static('public'));
 

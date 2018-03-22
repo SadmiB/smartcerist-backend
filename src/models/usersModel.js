@@ -27,5 +27,6 @@ export const UserSchema = new Schema({
     },
     country: {
         type: String
-    }
+    },
+    homes: [Schema.Types.ObjectId]
 });

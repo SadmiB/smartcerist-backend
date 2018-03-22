@@ -17,7 +17,7 @@ export const addUser = async (req, res) =>{
     let newUser = new User(req.body)
 
     try {
-        let savedUser = await newUser.save();
+        let savedUser = await newUser.save()
         res.json(savedUser)
     } catch (error) {
         res.send(error)
@@ -27,7 +27,7 @@ export const addUser = async (req, res) =>{
 export const getUserById = async (req, res) => {
     try{
         let user = await User.findById(req.params.userId)
-        res.json(user)    
+        res.json(user)
     } catch(error){
         res.send(error)
     }
