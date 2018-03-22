@@ -29,7 +29,8 @@ export const getHomeById = async (req, res) => {
 
 export const getUserHomes = async (req, res) => {
     try {
-        let homesIds = await User.findById(req.params.userId).homes
+        let user = await User.findById(req.params.userId)
+        let homesIds = await user.homes
         let homes = await Home.find({_id: {$in: homesIds}})
         res.json(homes)
     } catch (error) {
@@ -70,7 +71,7 @@ export const deleteUserHome = async (req, res) => {
     try {
         let home = await Home.remove({_id: req.params.homeId})
         let user = await User.update({_id:req.params.userId },{$pull: {homes: req.params.homeId}})
-        res.json(home + user)
+        res.json(home)
     } catch (error) {
         res.send(error)
     }

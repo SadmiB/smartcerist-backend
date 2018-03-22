@@ -36,7 +36,7 @@ const homesRoutes = (app) => {
 
     app.route('/users/:userId/homes/:homeId/rooms')
     .get(getHomeRooms)
-    .post(addHomeRoom)
+    .post(addHomeRoom)  
 
     app.route('/users/:userId/homes/:homeId/rooms/:roomId')
     .get(getRoom)
