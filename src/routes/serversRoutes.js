@@ -16,15 +16,15 @@ const serversRoutes = (app) => {
     app.route('/servers/:serverId')
     .get(getServer)
 
-    app.route('/users/:userId/homes/:homeId/servers')
+    app.route('/:homeId/servers')
     .get(getHomeServers)
     .post(addHomeServer)
 
-    app.route('/users/:userId/homes/:homeId/servers/:serverId')
+    app.route('/:homeId/servers/:serverId')
     .get(getHomeServer)
     .put(updateHomeServer)
     .delete(removeHomeServer)
-
+    
 }
 
 export default serversRoutes;

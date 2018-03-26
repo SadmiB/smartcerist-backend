@@ -75,7 +75,6 @@ export const removeHomeServer = async (req, res) => {
   try {
       let server = await _Server.remove({_id: req.params.serverId})
       let home = await Home.update({_id: req.params.homeId}, {$pull: {servers: req.params.serverId}})
-
       res.json(server)
   } catch (error) {
       res.send(error)

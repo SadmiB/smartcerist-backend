@@ -23,22 +23,22 @@ const homesRoutes = (app) => {
     .get(getHomeById)
     
 
-    app.route('/users/:userId/homes')
+    app.route('/:userId/homes')
     .get(getUserHomes)
     .post(addUserHome)
 
 
-    app.route('/users/:userId/homes/:homeId')
+    app.route('/:userId/homes/:homeId')
     .get(getUserHome)
     .put(updateUserHome)
     .delete(deleteUserHome)
 
 
-    app.route('/users/:userId/homes/:homeId/rooms')
+    app.route('/:userId/:homeId/rooms')
     .get(getHomeRooms)
     .post(addHomeRoom)  
 
-    app.route('/users/:userId/homes/:homeId/rooms/:roomId')
+    app.route('/:userId/:homeId/rooms/:roomId')
     .get(getRoom)
     .put(updateRoom)
     .delete(deleteRoom)
