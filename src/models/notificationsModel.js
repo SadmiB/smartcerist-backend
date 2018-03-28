@@ -4,19 +4,19 @@ const Schema = mongoose.Schema;
 
 
 export const NotificationSchema = new Schema({
-    "message": {
+    message: {
         type: String,
         required: "Enter a message"
     },
-    "date": {
+    date: {
         type: Date,
         required: "Specify a date and time"        
     },
-    "measure": {
+    measure: {
         type: Schema.Types.ObjectId,
         required: "Specify a measure"
     },
-    "status": {
+    status: {
         type: String, // seen or unseen
         required: "Specify if it is seen or not"        
     }

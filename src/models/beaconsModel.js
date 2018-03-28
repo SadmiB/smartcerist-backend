@@ -5,15 +5,15 @@ const Schema = mongoose.Schema;
 
 
 export const BeaconSchema = new Schema({
-    "ipv6": {
+    ipv6: {
         type: String,
         required: "Specify and ipv6"
     },
-    "ipv4": {
+    ipv4: {
         type: String
     },
-    "name": {
+    name: {
         type: String
     },
-    "objects": [ObjectSchema]
+    objects: [ObjectSchema]
 });

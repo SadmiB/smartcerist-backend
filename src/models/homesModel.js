@@ -30,6 +30,6 @@ export const HomeSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: 'Specify an owner'        
     },
-    servers:[Schema.Types.ObjectId],
+    servers: [Schema.Types.ObjectId],
     rooms: [RoomSchema]
 }); 

@@ -2,8 +2,12 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import usersRoutes from './src/routes/usersRoutes';
 import homesRoutes from './src/routes/homesRoutes';
-import mongoose from 'mongoose';
+import beaconsRoutes from './src/routes/beaconsRoutes';
+import measuresRoutes from './src/routes/measuresRoutes';
+import notificationsRoutes from './src/routes/notificationsRoutes';
+import objectsRoutes from './src/routes/objectsRoutes';
 import serversRoutes from './src/routes/serversRoutes';
+import mongoose from 'mongoose';
 
 var app = express();
 
@@ -19,6 +23,10 @@ mongoose.connect('mongodb://localhost/scdb');
 usersRoutes(app);
 homesRoutes(app);
 serversRoutes(app);
+beaconsRoutes(app);
+measuresRoutes(app);
+notificationsRoutes(app);
+objectsRoutes(app);
 //serving static files
 app.use(express.static('public'));
 
