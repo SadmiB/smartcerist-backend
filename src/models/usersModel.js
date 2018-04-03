@@ -31,5 +31,8 @@ export const UserSchema = new Schema({
     status:{
         type:Boolean
     },
+    picture:{
+        type:String
+    },
     homes: [Schema.Types.ObjectId]
 });
