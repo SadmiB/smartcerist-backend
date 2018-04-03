@@ -10,6 +10,7 @@ import serversRoutes from './src/routes/serversRoutes';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import { UserSchema } from './src/models/usersModel';
+import eventsRoutes from './src/routes/eventsRoutes';
 
 var app = express();
 const User = mongoose.model('User', UserSchema)
@@ -40,6 +41,7 @@ beaconsRoutes(app);
 measuresRoutes(app);
 notificationsRoutes(app);
 objectsRoutes(app);
+eventsRoutes(app);
 //serving static files
 app.use(express.static('public'));
 
