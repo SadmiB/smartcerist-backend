@@ -8,7 +8,6 @@ import notificationsRoutes from './src/routes/notificationsRoutes';
 import objectsRoutes from './src/routes/objectsRoutes';
 import serversRoutes from './src/routes/serversRoutes';
 import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
 import { UserSchema } from './src/models/usersModel';
 
 var app = express();
@@ -76,17 +75,7 @@ function sendAuthError(res) {
     return res.json({success: false, message: 'email or password incorrect'});
 }
 
-function checkAuthenticated(req, res, next) {
-    if(!req.header('authorization'))
-        return res.status(401).send({message: 'Unauthorized request. Missing authenication header'} );
-    var token = req.header('authorization').split(' ')[1];
-    var payload = jwt.decode(token, '123');
-    if(!payload)
-        res.status(401).send({message: 'Unauthorized request. Authentication header invalid'});
-    
-    req.user = payload;
-    next();
-}
+
 
 var server = app.listen(PORT, () =>
     console.log(`server is running in port: ${PORT}`)

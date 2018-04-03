@@ -29,7 +29,7 @@ export const getHomeById = async (req, res) => {
 
 export const getUserHomes = async (req, res) => {
     try {
-        let user = await User.findById(req.params.userId)
+        let user = await User.findById(req.userId)
         let homesIds = await user.homes
         let homes = await Home.find({_id: {$in: homesIds}})
         res.json(homes)
@@ -42,7 +42,7 @@ export const addUserHome = async (req, res) => {
     let newHome = new Home(req.body)
     try {
         let savedHome = await newHome.save()
-        let user = await User.update({_id: req.params.userId },{$push: {homes: savedHome._id}})
+        let user = await User.update({_id: req.userId },{$push: {homes: savedHome._id}})
         res.json(savedHome)
     } catch (error) {
         res.send(error)
