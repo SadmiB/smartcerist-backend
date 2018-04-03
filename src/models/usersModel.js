@@ -28,5 +28,11 @@ export const UserSchema = new Schema({
     country: {
         type: String
     },
+    status:{
+        type:Boolean
+    },
+    picture:{
+        type:String
+    },
     homes: [Schema.Types.ObjectId]
 });

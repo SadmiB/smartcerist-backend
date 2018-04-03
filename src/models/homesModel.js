@@ -26,6 +26,9 @@ export const HomeSchema = new Schema({
     lat:{
         type: String
     },
+    picture:{
+        type:String
+    },
     owner: {
         type: Schema.Types.ObjectId,
         required: 'Specify an owner'        

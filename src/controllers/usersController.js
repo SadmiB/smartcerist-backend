@@ -1,7 +1,8 @@
 import mongoose from "mongoose";
 import { UserSchema } from "../models/usersModel";
-
+import { HomeSchema } from "../models/homesModel";
 const User = mongoose.model('User', UserSchema)
+const Home = mongoose.model('Home', HomeSchema)
 
 export const getUsers = async (req, res) => {
     let users = await User.find({})
@@ -49,5 +50,24 @@ export const deleteUser = async (req, res) => {
         res.json(user)
     } catch (error) {
         res.send(error)
+    }
+}
+
+export const getHomeUsers = async (req,res) => {
+    try {
+        let homeUsers = new Set();
+        let home = await Home.findById(req.params.homeId);
+        let rooms = home.rooms;
+        rooms.forEach(room => {
+            let users = room.users;
+            users.forEach(user => {
+                if(!homeUsers.has(user.userId.toString()))
+                    homeUsers.add(user.userId.toString()) ;               
+            });
+        });
+        console.log(homeUsers);
+        res.json(homeUsers);
+    } catch (error) {
+        res.send(error);
     }
 }
