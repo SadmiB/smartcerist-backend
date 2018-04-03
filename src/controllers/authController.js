@@ -10,6 +10,5 @@ export const checkAuthenticated = (req, res, next) => {
         res.status(401).send({message: 'Unauthorized request. Authentication header invalid'});
     
     req.userId = payload;
-    console.log('next... ')
     next();
 }

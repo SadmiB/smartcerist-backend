@@ -1,5 +1,8 @@
 import express from 'express';
 import bodyParser from 'body-parser';
+import mongoose from 'mongoose';
+import jwt from 'jsonwebtoken';
+
 import usersRoutes from './src/routes/usersRoutes';
 import homesRoutes from './src/routes/homesRoutes';
 import beaconsRoutes from './src/routes/beaconsRoutes';
@@ -7,7 +10,6 @@ import measuresRoutes from './src/routes/measuresRoutes';
 import notificationsRoutes from './src/routes/notificationsRoutes';
 import objectsRoutes from './src/routes/objectsRoutes';
 import serversRoutes from './src/routes/serversRoutes';
-import mongoose from 'mongoose';
 import { UserSchema } from './src/models/usersModel';
 
 var app = express();
