@@ -1,4 +1,5 @@
 import { getEvents, getHomeEvents, getObjectEvents, getRoomEvents, getUserEvents, addEvent } from "../controllers/eventsController";
+import { checkAuthenticated } from "../controllers/authController";
 
 const eventRoutes = (app) => {
     app.route('/events')
@@ -8,8 +9,8 @@ const eventRoutes = (app) => {
     app.route('/homes/:homeId/events')
     .get(getHomeEvents)
 
-    app.route('/users/:userId/events')
-    .get(getUserEvents)
+    app.route('/users/user/events')
+    .get(checkAuthenticated,getUserEvents)
     
     app.route('/rooms/:roomId/events')
     .get(getRoomEvents)
