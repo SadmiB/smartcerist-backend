@@ -3,7 +3,8 @@ import { getUsers,
          getUserById,
          updateUser,
          deleteUser,
-         getHomeUsers} from "../controllers/usersController";
+         getHomeUsers,
+         getRoomUsers} from "../controllers/usersController";
 
 const usersRoutes = (app) => {
     app.route('/users')
@@ -17,6 +18,9 @@ const usersRoutes = (app) => {
 
     app.route('/:homeId/users')
     .get(getHomeUsers)
+
+    app.route('/:homeId/:roomId/users')
+    .get(getRoomUsers)
 };
 
 export default usersRoutes;
