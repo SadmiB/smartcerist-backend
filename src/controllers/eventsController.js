@@ -23,7 +23,7 @@ export const getHomeEvents = async (req,res) => {
 
 export const getUserEvents = async (req,res) => {
     try {
-        let events = await _Event.find({user:req.params.userId});
+        let events = await _Event.find({user:req.userId});
         res.json(events);
     } catch (error) {
         res.send(error);
