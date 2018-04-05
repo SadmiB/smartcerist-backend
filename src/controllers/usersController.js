@@ -30,6 +30,7 @@ export const getUserById = async (req, res) => {
         let user = await User.findById(req.params.userId)
         res.json(user)
     } catch(error){
+        console.log("rien n'est trouvé");
         res.send(error)
     }
 };
@@ -58,15 +59,51 @@ export const getHomeUsers = async (req,res) => {
         let homeUsers = new Set();
         let home = await Home.findById(req.params.homeId);
         let rooms = home.rooms;
+        console.log(rooms);
         rooms.forEach(room => {
-            let users = room.users;
-            users.forEach(user => {
+            let roomUsers = room.users;
+            roomUsers.forEach(user => {
                 if(!homeUsers.has(user.userId.toString()))
                     homeUsers.add(user.userId.toString()) ;               
             });
         });
-        console.log(homeUsers);
-        res.json(homeUsers);
+        let homeUsersArray = Array.from(homeUsers);
+        console.log(homeUsersArray);
+        let users = await User.find({_id: {$in: homeUsersArray}})
+        console.log(users);
+        res.json(users);
+    } catch (error) {
+        res.send(error);
+    }
+}
+
+export const getRoomUsersPermissions = async (req,res) => {
+    try {
+        let home = await Home.findById(req.params.homeId);
+        let room = home.rooms.id(req.params.roomId);
+        let users = room.users;
+        res.json(users);
+    } catch (error) {
+        res.send(error);
+    }
+}
+
+export const getRoomUsers = async (req,res) => {
+    try {
+        console.log("users");
+        let roomUsers = new Set();
+        let home = await Home.findById(req.params.homeId);
+        let room = home.rooms.id(req.params.roomId);
+        let users = room.users;
+        console.log(users);
+        users.forEach(user => {
+            if(!roomUsers.has(user.userId.toString()))
+            roomUsers.add(user.userId.toString()) ;           
+        });
+        console.log(roomUsers);
+        let roomUsersArray = Array.from(roomUsers);
+        let usersResult = await User.find({_id: {$in: roomUsersArray}})
+        res.json(usersResult);
     } catch (error) {
         res.send(error);
     }
