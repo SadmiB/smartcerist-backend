@@ -70,7 +70,7 @@ export const updateUserHome = async (req, res) => {
 export const deleteUserHome = async (req, res) => {
     try {
         let home = await Home.remove({_id: req.params.homeId})
-        let user = await User.update({_id:req.params.userId },{$pull: {homes: req.params.homeId}})
+        let user = await User.update({_id:req.userId },{$pull: {homes: req.params.homeId}})
         res.json(home)
     } catch (error) {
         res.send(error)

@@ -33,7 +33,7 @@ const homesRoutes = (app) => {
     app.route('/user/homes/:homeId')
     .get(getUserHome)
     .put(updateUserHome)
-    .delete(deleteUserHome)
+    .delete(checkAuthenticated, deleteUserHome)
 
 
     app.route('/user/:homeId/rooms')
