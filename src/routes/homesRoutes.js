@@ -10,7 +10,8 @@ import {
     addHomeRoom,
     getRoom,
     updateRoom,
-    deleteRoom
+    deleteRoom,
+    getOwnerHomes
 } from '../controllers/homesController'
 
 import { checkAuthenticated } from '../controllers/authController'
@@ -29,6 +30,8 @@ const homesRoutes = (app) => {
     .get(checkAuthenticated, getUserHomes)
     .post(checkAuthenticated, addUserHome)
 
+    app.route('/:owner/homes')
+    .get(checkAuthenticated,getOwnerHomes)
 
     app.route('/user/homes/:homeId')
     .get(getUserHome)
