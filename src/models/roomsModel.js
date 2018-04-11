@@ -7,6 +7,9 @@ export const RoomSchema = new Schema({
         type: String,
         required: 'Enter a room name'
     },
+    type: {
+        type: String
+    },
     objects : [Schema.Types.ObjectId],
     users: [{
         userId: {

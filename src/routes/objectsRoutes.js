@@ -3,7 +3,7 @@ import {getBeaconObjectWithId,
         addBeaconObject,
         deleteBeaconObject,
         updateBeaconObject
-} from '../controllers/objectsController'
+      } from '../controllers/objectsController'
 
 const objectsRoutes = (app) => {
   

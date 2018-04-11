@@ -10,7 +10,9 @@ import {
     addHomeRoom,
     getRoom,
     updateRoom,
-    deleteRoom
+    deleteRoom,
+    addRoomObject,
+    deleteRoomObject
 } from '../controllers/homesController'
 
 import { checkAuthenticated } from '../controllers/authController'
@@ -44,6 +46,13 @@ const homesRoutes = (app) => {
     .get(getRoom)
     .put(updateRoom)
     .delete(deleteRoom)
+
+    // app.route('/:homeId/:roomId/:serverId/:beaconId/objects')
+    // .get(getRoomObjects)
+
+    app.route('/:homeId/rooms/:roomId/objects/:objectId')  
+    .post(addRoomObject)
+    .delete(deleteRoomObject)
 }
 
 export default homesRoutes;
