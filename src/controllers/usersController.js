@@ -25,7 +25,7 @@ export const addUser = async (req, res) =>{
     }
 };
 
-export const getUserById = async (req, res) => {
+export const getConnectedUser = async (req, res) => {
     try{
         let user = await User.findById(req.userId)
         res.json(user)
@@ -35,7 +35,7 @@ export const getUserById = async (req, res) => {
     }
 };
 
-export const updateUser = async (req, res) => {
+export const updateConnectedUser = async (req, res) => {
     try {
         let user = await User.findOneAndUpdate({_id: req.userId}, req.body, {new: true})
         res.json(user)
@@ -45,9 +45,38 @@ export const updateUser = async (req, res) => {
 };
 
 
-export const deleteUser = async (req, res) => {
+export const deleteConnectedUser = async (req, res) => {
     try {
         let user = await User.remove({_id: req.userId})
+        res.json(user)
+    } catch (error) {
+        res.send(error)
+    }
+}
+
+export const getUserById = async (req, res) => {
+    try{
+        let user = await User.findById(req.params.userId)
+        res.json(user)
+    } catch(error){
+        console.log("rien n'est trouvé");
+        res.send(error)
+    }
+};
+
+export const updateUser = async (req, res) => {
+    try {
+        let user = await User.findOneAndUpdate({_id: req.params.userId}, req.body, {new: true})
+        res.json(user)
+    } catch (error) {
+        res.send(error)
+    }
+};
+
+
+export const deleteUser = async (req, res) => {
+    try {
+        let user = await User.remove({_id: req.params.userId})
         res.json(user)
     } catch (error) {
         res.send(error)

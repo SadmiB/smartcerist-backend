@@ -4,7 +4,10 @@ import { getUsers,
          updateUser,
          deleteUser,
          getHomeUsers,
-         getRoomUsers} from "../controllers/usersController";
+         getRoomUsers,
+         getConnectedUser,
+         updateConnectedUser,
+         deleteConnectedUser} from "../controllers/usersController";
 import {checkAuthenticated} from "../controllers/authController";
 
 const usersRoutes = (app) => {
@@ -13,6 +16,11 @@ const usersRoutes = (app) => {
     .post(addUser);
 
     app.route('/users/user')
+    .get(checkAuthenticated,getConnectedUser)
+    .put(checkAuthenticated,updateConnectedUser)
+    .delete(checkAuthenticated,deleteConnectedUser)
+
+    app.route('/users/:userId')
     .get(checkAuthenticated,getUserById)
     .put(checkAuthenticated,updateUser)
     .delete(checkAuthenticated,deleteUser)
