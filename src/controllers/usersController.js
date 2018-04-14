@@ -137,3 +137,24 @@ export const getRoomUsers = async (req,res) => {
         res.send(error);
     }
 }
+
+export const updateUserRoomPermission = async (req,res ) => {
+    try {
+        let users = [];
+        let home = await Home.findById(req.params.homeId);
+        let room = home.rooms.id(req.params.roomId);
+        users = room.users;
+        console.log(users);
+        users.forEach(user => {
+            console.log(user);
+            if(user.userId == req.params.userId)
+                user.set(req.body);
+        });
+        await home.save();
+        res.json(room);
+    } catch (e) {
+        console.log(e.message);
+        res.send(e);
+}
+
+}

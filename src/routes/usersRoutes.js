@@ -7,7 +7,8 @@ import { getUsers,
          getRoomUsers,
          getConnectedUser,
          updateConnectedUser,
-         deleteConnectedUser} from "../controllers/usersController";
+         deleteConnectedUser,
+         updateUserRoomPermission} from "../controllers/usersController";
 import {checkAuthenticated} from "../controllers/authController";
 
 const usersRoutes = (app) => {
@@ -30,6 +31,9 @@ const usersRoutes = (app) => {
 
     app.route('/:homeId/:roomId/users')
     .get(getRoomUsers)
+
+    app.route('/:homeId/:roomId/permission/:userId')
+    .put(updateUserRoomPermission)
 };
 
 export default usersRoutes;
