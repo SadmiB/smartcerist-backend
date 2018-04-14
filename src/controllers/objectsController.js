@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { ServerSchema } from '../models/serversModel'
+import { Server } from 'http';
 
 const _Server = mongoose.model('Server',ServerSchema)
 
@@ -70,3 +71,13 @@ export const deleteBeaconObject = async (req,res) => {
     }
 }
 
+export const getServerByObjectId = async (req, res) => {
+    console.log('get object...')
+    try {
+        let server = await _Server.findOne({'beacons.objects': {$elemMatch: {_id: req.params.objectId }}})
+        console.log('getServerByObjectId: ', server)        
+        res.json(server)
+    } catch (error) {
+        res.send(error)
+    }
+}

@@ -2,7 +2,8 @@ import {getBeaconObjectWithId,
         getBeaconObjects,
         addBeaconObject,
         deleteBeaconObject,
-        updateBeaconObject
+        updateBeaconObject,
+        getServerByObjectId
       } from '../controllers/objectsController'
 
 const objectsRoutes = (app) => {
@@ -15,6 +16,9 @@ const objectsRoutes = (app) => {
   .get(getBeaconObjectWithId)
   .put(updateBeaconObject)
   .delete(deleteBeaconObject)
+
+  app.route('/objects/:objectId')
+  .get(getServerByObjectId)
 
 }
 
