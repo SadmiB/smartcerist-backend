@@ -12,7 +12,13 @@ export const ServerSchema = new Schema({
         type: String,
         required: "Specify an ipv6"
     },
+    lipv6: {
+        type: String,
+    },
     ipv4: {
+        type: String
+    },
+    lipv4: {
         type: String
     },
     beacons: [BeaconSchema]
