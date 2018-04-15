@@ -12,21 +12,25 @@ export const EventSchema = new Schema({
         type: Date,
         required:"Specify the date"
     },
+
+    category:{
+        type: String,
+        required:"Specify the date"
+    },
+    message:{
+        type: String,
+    },
     home:{
         type:Schema.Types.ObjectId,
-        required:"specify the home"
     },
     user:{
         type:Schema.Types.ObjectId,
-        required:"specify the user"
     },
     room:{
         type:Schema.Types.ObjectId,
-        required:"specify the room"
     },
     object:{
         type:Schema.Types.ObjectId,
-        required:"specify an object"
     }
     
 });
