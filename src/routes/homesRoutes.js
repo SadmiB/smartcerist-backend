@@ -11,6 +11,7 @@ import {
     getRoom,
     updateRoom,
     deleteRoom,
+    getOwnerHomes,
     addRoomObject,
     deleteRoomObject
 } from '../controllers/homesController'
@@ -31,6 +32,8 @@ const homesRoutes = (app) => {
     .get(checkAuthenticated, getUserHomes)
     .post(checkAuthenticated, addUserHome)
 
+    app.route('/:owner/homes')
+    .get(checkAuthenticated,getOwnerHomes)
 
     app.route('/user/homes/:homeId')
     .get(getUserHome)

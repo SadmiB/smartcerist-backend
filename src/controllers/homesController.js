@@ -38,6 +38,15 @@ export const getUserHomes = async (req, res) => {
     }
 };
 
+export const getOwnerHomes = async(req,res)=>{
+    try {
+        let homes = await Home.find({owner:req.userId})
+        res.json(homes)
+    } catch (e) {
+        res.send(e)
+    }
+};
+
 export const addUserHome = async (req, res) => {
     let newHome = new Home(req.body)
     try {
