@@ -67,6 +67,7 @@ export const getUserById = async (req, res) => {
 export const updateUser = async (req, res) => {
     try {
         let user = await User.findOneAndUpdate({_id: req.params.userId}, req.body, {new: true})
+        console.log(user);
         res.json(user)
     } catch (error) {
         res.send(error)
@@ -117,6 +118,22 @@ export const getRoomUsersPermissions = async (req,res) => {
     }
 }
 
+export const getRoomUserPermission = async (req,res) => {
+    try {
+        let userPermission= null;
+        let home = await Home.findById(req.params.homeId);
+        let room = home.rooms.id(req.params.roomId);
+        let users = room.users;
+        users.forEach(user => {
+            if (user.userId == req.params.userId)
+                userPermission = user;          
+        });
+        res.json(userPermission.permission);
+    } catch (error) {
+        res.send(error);
+    }
+}
+
 export const getRoomUsers = async (req,res) => {
     try {
         console.log("users");
@@ -127,7 +144,7 @@ export const getRoomUsers = async (req,res) => {
         console.log(users);
         users.forEach(user => {
             if(!roomUsers.has(user.userId.toString()))
-            roomUsers.add(user.userId.toString()) ;           
+                roomUsers.add(user.userId.toString()) ;           
         });
         console.log(roomUsers);
         let roomUsersArray = Array.from(roomUsers);
@@ -158,3 +175,24 @@ export const updateUserRoomPermission = async (req,res ) => {
 }
 
 }
+
+export const getConnectedUserHomesId = async (req,res) => {
+    try {
+        let user = await User.findById(req.userId);
+        let homesId = user.homes;
+        res.json(homesId)       
+    } catch (e) {
+        res.send(e)
+    }
+}
+
+export const getUserHomesId = async (req,res) => {
+    try {
+        let user = await User.findById(req.params.userId);
+        let homesId = user.homes;
+        res.json(homesId)       
+    } catch (e) {
+        res.send(e)
+    }
+}
+

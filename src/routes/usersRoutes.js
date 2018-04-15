@@ -8,7 +8,10 @@ import { getUsers,
          getConnectedUser,
          updateConnectedUser,
          deleteConnectedUser,
-         updateUserRoomPermission} from "../controllers/usersController";
+         updateUserRoomPermission,
+         getRoomUserPermission,
+         getUserHomesId,
+         getConnectedUserHomesId} from "../controllers/usersController";
 import {checkAuthenticated} from "../controllers/authController";
 
 const usersRoutes = (app) => {
@@ -21,10 +24,16 @@ const usersRoutes = (app) => {
     .put(checkAuthenticated,updateConnectedUser)
     .delete(checkAuthenticated,deleteConnectedUser)
 
+    app.route('/user/homesId')
+    .get(checkAuthenticated,getConnectedUserHomesId)
+
+    app.route('/users/:userId/homes')
+    .get(getUserHomesId)
+
     app.route('/users/:userId')
-    .get(checkAuthenticated,getUserById)
-    .put(checkAuthenticated,updateUser)
-    .delete(checkAuthenticated,deleteUser)
+    .get(getUserById)
+    .put(updateUser)
+    .delete(deleteUser)
 
     app.route('/:homeId/users')
     .get(getHomeUsers)
@@ -34,6 +43,7 @@ const usersRoutes = (app) => {
 
     app.route('/:homeId/:roomId/permission/:userId')
     .put(updateUserRoomPermission)
+    .get(getRoomUserPermission)
 };
 
 export default usersRoutes;
