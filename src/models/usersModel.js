@@ -19,13 +19,19 @@ export const UserSchema = new Schema({
         type: String,
         required: 'Enter a password'                
     },
-    telephone: {
+    phone: {
         type: String
     },
     gender: {
         type: String
     },
     country: {
+        type: String
+    },
+    city: {
+        type: String
+    },
+    postCode: {
         type: String
     },
     status:{

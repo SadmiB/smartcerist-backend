@@ -19,5 +19,9 @@ export const NotificationSchema = new Schema({
     status: {
         type: String, // seen or unseen
         required: "Specify if it is seen or not"        
+    },
+    category:{
+        type: String,
+        required : "Specify it's category"
     }
 });
