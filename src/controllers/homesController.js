@@ -110,6 +110,7 @@ export const getRoom = async (req, res) => {
     try {
         let home = await Home.findById(req.params.homeId)        
         let room = await home.rooms.id(req.params.roomId)
+        console.log('getRoom: ', room)
         res.json(room)
     } catch (error) {
         res.send(error)
@@ -130,7 +131,7 @@ export const updateRoom = async (req, res) => {
 
 
 export const deleteRoom = async (req, res) => {
-
+    console.log('delete room...')
     try {
         let home = await Home.findById(req.params.homeId)
         let room = await home.rooms.pull(req.params.roomId)
@@ -141,3 +142,44 @@ export const deleteRoom = async (req, res) => {
     }
 };
 
+// export const getRoomObjects = async (req, res) => {
+//     console.log('get room objects..')
+//     try {
+//         let home = await Home.findById(req.params.homeId)
+//         let room = await home.id(req.params.roomId)
+//         let objectsIds = room.objects
+
+//         let server = await _Server.findById(req.params.serverId)
+//         let beacons = await server.beacons.id(req.params.beaconId)
+//         let objects = await beacons.objects.find({_id: {$in: objectsIds}})
+//         res.json(objects)
+//     } catch (error) {
+//         res.send(error)
+//     }
+// }
+
+export const addRoomObject = async (req, res) => {
+    console.log('add object to room...')
+    try {
+        let home = await Home.findById(req.params.homeId)
+        let room = await home.rooms.id(req.params.roomId)
+        await room.objects.push(req.params.objectId)
+        await home.save()
+        res.json(home)
+    } catch (error) {
+        res.send(error)
+    }
+};
+
+export const deleteRoomObject = async (req, res) => {
+    console.log('delete object..')
+    try {
+        let home = await Home.findById(req.params.homeId)
+        let room = await home.rooms.id(req.params.roomId)
+        await room.objects.pull(req.params.objectId)
+        await home.save()
+        res.json(home)
+    } catch (error) {
+        res.send(error)
+    }
+};
