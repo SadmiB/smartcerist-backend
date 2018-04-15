@@ -8,21 +8,6 @@ const Home = mongoose.model('Home', HomeSchema);
 const _Server = mongoose.model('Server',ServerSchema)
 
 
-// export const getNotifications = async (req, res) => {
-//     try {
-//         let user = await User.findById(req.params.userId)
-//         let homesIds = user.homes
-//         let homes = await Home.find({_id: {$in: homesIds}})
-//         let rooms = []
-//         homes.forEach(home => {
-//             rooms.concat(home.rooms)
-//         });
-//
-//     } catch (error) {
-//         res.send(error)
-//     }
-// };
-
 //works
 export const getObjectNotifications = async (req ,res) => {
     try {
