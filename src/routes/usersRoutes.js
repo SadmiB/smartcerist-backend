@@ -11,7 +11,8 @@ import { getUsers,
          updateUserRoomPermission,
          getRoomUserPermission,
          getUserHomesId,
-         getConnectedUserHomesId} from "../controllers/usersController";
+         getConnectedUserHomesId,
+         deleteRoomUser} from "../controllers/usersController";
 import {checkAuthenticated} from "../controllers/authController";
 
 const usersRoutes = (app) => {
@@ -40,6 +41,9 @@ const usersRoutes = (app) => {
 
     app.route('/:homeId/:roomId/users')
     .get(getRoomUsers)
+
+    app.route('/:homeId/:roomId/users/:userId')
+    .delete(deleteRoomUser)
 
     app.route('/:homeId/:roomId/permission/:userId')
     .put(updateUserRoomPermission)

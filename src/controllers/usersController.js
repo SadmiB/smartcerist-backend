@@ -56,8 +56,9 @@ export const deleteConnectedUser = async (req, res) => {
 
 export const getUserById = async (req, res) => {
     try{
-        let user = await User.findById(req.params.userId)
+        let user = await User.findOne({_id:req.params.userId})
         res.json(user)
+        console.log(user);
     } catch(error){
         console.log("rien n'est trouvé");
         res.send(error)
@@ -131,6 +132,27 @@ export const getRoomUserPermission = async (req,res) => {
         res.json(userPermission.permission);
     } catch (error) {
         res.send(error);
+    }
+}
+
+//remove a user from a room
+export const deleteRoomUser = async (req,res) =>{
+    try {
+        console.log(req.params.homeId);
+        console.log(req.params.roomId);
+        console.log(req.params.userId);
+        let userId;
+        let home = await Home.findById(req.params.homeId)
+        let room = await home.rooms.id(req.params.roomId)
+        room.users.forEach(user => {
+            if(user.userId.toString() == req.params.userId.toString())
+                userId = user._id  ;                          
+        });
+        await room.users.pull(userId)
+        await home.save() 
+        res.json(home)
+    } catch (e) {
+        res.send(e)
     }
 }
 
