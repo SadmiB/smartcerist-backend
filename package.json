@@ -10,10 +10,13 @@
   "author": "Sadmi Bouhafs & Mohand Ouamer Nait Belaid",
   "license": "ISC",
   "dependencies": {
+    "assert": "^1.4.1",
     "body-parser": "^1.18.2",
+    "coap": "^0.21.0",
     "express": "^4.16.3",
     "jsonwebtoken": "^8.2.0",
-    "mongoose": "^5.0.11"
+    "mongoose": "^5.0.11",
+    "url": "^0.11.0"
   },
   "devDependencies": {
     "babel-cli": "^6.26.0",

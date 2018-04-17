@@ -2,6 +2,7 @@ import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
+import path from 'path';
 
 import usersRoutes from './src/routes/usersRoutes';
 import homesRoutes from './src/routes/homesRoutes';
@@ -12,6 +13,7 @@ import objectsRoutes from './src/routes/objectsRoutes';
 import serversRoutes from './src/routes/serversRoutes';
 import { UserSchema } from './src/models/usersModel';
 import eventsRoutes from './src/routes/eventsRoutes';
+import iotRoutes from './src/routes/api';
 
 var app = express();
 const User = mongoose.model('User', UserSchema)
@@ -44,12 +46,18 @@ measuresRoutes(app);
 notificationsRoutes(app);
 objectsRoutes(app);
 eventsRoutes(app);
+iotRoutes(app);
+
 //serving static files
 app.use(express.static('public'));
+
+// Angular DIST output folder
+app.use(express.static(path.join(__dirname, 'dist')));
 
 app.get('/', (req, res) => 
     res.send(`server is running in port: ${PORT}`)
 );
+
 
 app.post('/signup', async (req, res) => {
     console.log('signup...');

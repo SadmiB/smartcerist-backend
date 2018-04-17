@@ -10,7 +10,7 @@ import {checkAuthenticated} from "../controllers/authController";
 const usersRoutes = (app) => {
     app.route('/users')
     .get(getUsers)
-    .post(addUser);
+    .post(addUser)
 
     app.route('/users/user')
     .get(checkAuthenticated,getUserById)
