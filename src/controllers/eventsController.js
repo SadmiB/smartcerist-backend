@@ -58,3 +58,33 @@ export const addEvent = async (req,res) => {
 }   
 }
 
+export const getEventWithId = async (req, res) => {
+    try{
+        let _event = await _Event.findById(req.params.eventId)
+        res.json(_event)
+    } catch(error){
+        console.log("rien n'est trouvé");
+        res.send(error)
+    }
+};
+
+export const updateEvent = async (req, res) => {
+    try {
+        let _envet = await _Event.findOneAndUpdate({_id: req.params.eventId}, req.body, {new: true})
+        console.log(_envet);
+        res.json(_envet)
+    } catch (error) {
+        res.send(error)
+    }
+};
+
+
+export const deleteEvent = async (req, res) => {
+    try {
+        let _event = await _Event.remove({_id: req.params.eventId})
+        res.json(_event)
+    } catch (error) {
+        res.send(error)
+    }
+}
+

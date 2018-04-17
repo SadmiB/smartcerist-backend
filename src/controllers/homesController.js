@@ -142,7 +142,6 @@ export const deleteRoom = async (req, res) => {
     }
 };
 
-
 // export const getRoomObjects = async (req, res) => {
 //     console.log('get room objects..')
 //     try {
