@@ -29,6 +29,7 @@ export const getHomeById = async (req, res) => {
 
 export const getUserHomes = async (req, res) => {
     try {
+        console.log("je suis ici")
         let user = await User.findById(req.userId)
         let homesIds = await user.homes
         let homes = await Home.find({_id: {$in: homesIds}})
@@ -183,3 +184,26 @@ export const deleteRoomObject = async (req, res) => {
         res.send(error)
     }
 };
+
+
+export const getUserRooms = async (req,res) => {
+    try {
+        let userRooms = new Set() ;
+        let home = await Home.findOne({_id: req.params.homeId});
+        let rooms = home.rooms;
+        rooms.forEach(room => {
+            let users = room.users;
+            console.log(users);
+            users.forEach(user => {
+                if (user.userId == req.params.userId)
+                    if(!userRooms.has(room))
+                        userRooms.add(room);
+                        console.log(userRooms);
+            });            
+        });
+        console.log(userRooms); 
+        res.json(userRooms)
+    } catch (e) {
+        res.send(e)    
+    }
+}
