@@ -25,7 +25,7 @@ const iotRoutes = (app) => {
 
   /*********************Led***************************/
 
-  app.route('/api/lights/led3')
+  app.route('/api/lights/led')
 
   // Get led3 2001:4340:1010:22:2ca:29ff:fea2:9512
   .get((req, res) => {
@@ -49,7 +49,6 @@ const iotRoutes = (app) => {
     }
   })
 
-  
   // Put led3 2001:4340:1010:22:2ca:29ff:fea2:9512
   .put( (req, res) => {
     var coapConnection = {
@@ -77,7 +76,7 @@ const iotRoutes = (app) => {
 
   /***********************Light*************************/
 
-  app.route('/api/lights/adc')
+  app.route('/api/lights/light')
   // Get  ligth 2001:4340:1010:22:02a0:44ff:fe66:6b6e
   .get( (req, res) => {
     var coapConnection = {
