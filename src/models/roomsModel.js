@@ -11,6 +11,7 @@ export const RoomSchema = new Schema({
         type: String
     },
     objects : [Schema.Types.ObjectId],
+    cameras : [Schema.Types.ObjectId],
     users: [{
         userId: {
             type: Schema.Types.ObjectId

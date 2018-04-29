@@ -1,5 +1,6 @@
 import mongoose from 'mongoose';
 import { BeaconSchema } from './beaconsModel';
+import { CamerasSchema } from './camerasModel';
 
 const Schema = mongoose.Schema;
 
@@ -21,5 +22,6 @@ export const ServerSchema = new Schema({
     lipv4: {
         type: String
     },
-    beacons: [BeaconSchema]
+    beacons: [BeaconSchema],
+    cameras: [CamerasSchema]
 });
