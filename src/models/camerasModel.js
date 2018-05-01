@@ -1,4 +1,5 @@
 import mongoose from 'mongoose';
+import { CameraHistorySchema } from './cameraHistoryModel';
 
 const Schema = mongoose.Schema;
 
@@ -16,7 +17,7 @@ export const CameraSchema = new Schema({
     },
     username:{
         type: String,
-        required: "Specify a username."       
+        required: "Specify a username."
     },
     password: {
         type: String,
@@ -32,5 +33,6 @@ export const CameraSchema = new Schema({
     },
     ddns: {
         type: String
-    }
+    },
+    history:[CameraHistorySchema]
 });

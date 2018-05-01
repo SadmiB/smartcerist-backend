@@ -1,19 +1,21 @@
 import { 
          addRoomCamera,
          getRoomCameras,
-         getCamera,
-         addCamera 
+         getServerCamera,
+         addServerCamera 
 } from '../controllers/camerasController';
 
 
 const camerasRoutes = (app) => {
    
     app.route('/:homeId/:roomId/cameras')
-    .get(getRoomCameras)    
+    .get(getRoomCameras);
+    app.route('/:homeId/:roomId/cameras/:cameraId')    
     .post(addRoomCamera);
     app.route('/:serverId/cameras/:cameraId')
-    .get(getCamera)
-    .post(addCamera);
+    .get(getServerCamera)
+    app.route('/:serverId/cameras')    
+    .post(addServerCamera);
 }
 
 export default camerasRoutes;
