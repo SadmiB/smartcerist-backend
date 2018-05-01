@@ -1,7 +1,7 @@
 import mongoose from 'mongoose';
 import { ServerSchema } from '../models/serversModel';
 
-const _Server = mongoose.model("Server",ServerSchema);
+const _Server = mongoose.model("Server", ServerSchema);
 
 //works
 export const getServerBeacons = async (req,res) => {

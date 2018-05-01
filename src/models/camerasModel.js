@@ -12,25 +12,25 @@ export const CameraSchema = new Schema({
     },
     ipv6: {
         type: String,
-        required: 'Specify an ipv6.'
+        required: "Specify an ipv6."
     },
     username:{
         type: String,
-        required: 'Specify a username.'       
+        required: "Specify a username."       
     },
     password: {
         type: String,
-        required: 'Specify a password.'
+        required: "Specify a password."
     },
     main_stream: {
         type: String,
-        required: 'Specify a main stream url.'        
+        required: "Specify a main stream url."        
     },
     sub_stream: {
         type: String,
-        required: 'Specify a sub stream url.'        
+        required: "Specify a sub stream url."        
     },
     ddns: {
-        type: String     
+        type: String
     }
 });

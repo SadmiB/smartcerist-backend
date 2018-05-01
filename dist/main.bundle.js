@@ -180,12 +180,14 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_26__components_home_home_component__ = __webpack_require__("./src/app/components/home/home.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_room_room_component__ = __webpack_require__("./src/app/components/room/room.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__services_room_service__ = __webpack_require__("./src/app/services/room.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__services_objects_service__ = __webpack_require__("./src/app/services/objects.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
 
 
 
@@ -248,7 +250,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_12__angular_common_http__["b" /* HttpClientModule */],
                 __WEBPACK_IMPORTED_MODULE_24__angular_material_paginator__["b" /* MatPaginatorModule */],
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_11__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_13__services_homes_service__["a" /* HomesService */], __WEBPACK_IMPORTED_MODULE_25__services_rooms_service__["a" /* RoomsService */], __WEBPACK_IMPORTED_MODULE_28__services_room_service__["a" /* RoomService */], __WEBPACK_IMPORTED_MODULE_23__services_user_service__["a" /* UserService */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_11__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_13__services_homes_service__["a" /* HomesService */], __WEBPACK_IMPORTED_MODULE_25__services_rooms_service__["a" /* RoomsService */], __WEBPACK_IMPORTED_MODULE_28__services_room_service__["a" /* RoomService */], __WEBPACK_IMPORTED_MODULE_23__services_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_29__services_objects_service__["a" /* ObjectsService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -312,14 +314,14 @@ var AnalyticsComponent = /** @class */ (function () {
 /***/ "./src/app/components/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<mat-sidenav-container class=\"container\">\n  <mat-sidenav mode='side' opened='true' id=\"sidenav\">\n    <br>\n    <div>\n        <button mat-button ><mat-icon>fiber_manual_record</mat-icon> SMARTCERIST</button>\n    </div>\n    <br>\n   \n    <mat-button-toggle-group #group='matButtonToggleGroup' [vertical]='true' value='homes'>\n      <mat-button-toggle value='homes' routerLink='homes' routerLinkActive>\n        <mat-icon>home</mat-icon> Homes\n      </mat-button-toggle>\n      <mat-button-toggle value='rooms' routerLink='rooms' routerLinkActive>\n        <mat-icon>crop_square</mat-icon> Rooms\n      </mat-button-toggle>\n      <mat-button-toggle value='users' routerLink='users' routerLinkActive>\n        <mat-icon>people</mat-icon> Users\n      </mat-button-toggle>\n      <mat-button-toggle value='servers' routerLink='servers' routerLinkActive>\n        <mat-icon>settings_system_daydream</mat-icon> Servers\n      </mat-button-toggle>\n      <mat-button-toggle value='notifications' routerLink='notifications' routerLinkActive>\n        <mat-icon>notifications</mat-icon>Notifications\n      </mat-button-toggle>\n      <mat-button-toggle value='history' routerLink='history' routerLinkActive>\n        <mat-icon>history</mat-icon> History\n      </mat-button-toggle>\n      <mat-button-toggle value='analytics' routerLink='analytics' routerLinkActive>\n        <mat-icon>assessment</mat-icon> Analytics\n      </mat-button-toggle>\n      <mat-button-toggle value='settings' routerLink='settings' routerLinkActive>\n        <mat-icon>settings</mat-icon> Settings\n      </mat-button-toggle>\n    </mat-button-toggle-group>\n\n  </mat-sidenav>\n  <mat-sidenav-content>\n\n    <router-outlet></router-outlet>\n  \n  </mat-sidenav-content>\n</mat-sidenav-container>"
+module.exports = "<mat-sidenav-container class=\"container\">\n  <mat-sidenav mode='side' opened='true' id=\"sidenav\">\n    <br>\n    <div>\n        <button mat-button><mat-icon>fiber_manual_record</mat-icon> SMARTCERIST</button>\n    </div>\n    <br>\n    <mat-button-toggle-group #group='matButtonToggleGroup' [vertical]='true' value='homes'>\n      <mat-button-toggle value='homes' routerLink='homes' routerLinkActive>\n        <mat-icon>home</mat-icon> Homes\n      </mat-button-toggle>\n      <mat-button-toggle value='rooms' routerLink='rooms' routerLinkActive>\n        <mat-icon>crop_square</mat-icon> Rooms\n      </mat-button-toggle>\n      <mat-button-toggle value='users' routerLink='users' routerLinkActive>\n        <mat-icon>people</mat-icon> Users\n      </mat-button-toggle>\n      <mat-button-toggle value='servers' routerLink='servers' routerLinkActive>\n        <mat-icon>settings_system_daydream</mat-icon> Servers\n      </mat-button-toggle>\n      <mat-button-toggle value='notifications' routerLink='notifications' routerLinkActive>\n        <mat-icon>notifications</mat-icon>Notifications\n      </mat-button-toggle>\n      <mat-button-toggle value='history' routerLink='history' routerLinkActive>\n        <mat-icon>history</mat-icon> History\n      </mat-button-toggle>\n      <mat-button-toggle value='analytics' routerLink='analytics' routerLinkActive>\n        <mat-icon>assessment</mat-icon> Analytics\n      </mat-button-toggle>\n      <mat-button-toggle value='settings' routerLink='settings' routerLinkActive>\n        <mat-icon>settings</mat-icon> Settings\n      </mat-button-toggle>\n    </mat-button-toggle-group>\n\n  </mat-sidenav>\n  <mat-sidenav-content>\n\n    <router-outlet></router-outlet>\n  \n  </mat-sidenav-content>\n</mat-sidenav-container>"
 
 /***/ }),
 
 /***/ "./src/app/components/dashboard/dashboard.component.scss":
 /***/ (function(module, exports) {
 
-module.exports = ".container {\n  width: 100%;\n  height: 800px; }\n\n#sidenav {\n  width: 230px;\n  background: #37474f;\n  color: white; }\n\ndiv > button {\n  width: 230px; }\n\nmat-button-toggle-group > .mat-button-toggle {\n  width: 200px;\n  color: white;\n  border-radius: 6px;\n  -ms-flex-item-align: center;\n      -ms-grid-row-align: center;\n      align-self: center;\n  height: 40px; }\n\n.mat-button-toggle-checked {\n  background: #0c66a1; }\n\nmat-button-toggle-group {\n  height: 700px;\n  width: 100%; }\n"
+module.exports = ".container {\n  position: absolute;\n  top: 0px;\n  left: 0px;\n  width: 100%;\n  height: 100%; }\n\n#sidenav {\n  overflow-y: auto;\n  height: 100%;\n  width: 20%;\n  height: auto;\n  background: #37474f;\n  color: white;\n  -webkit-box-shadow: 0 7px 14px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22);\n          box-shadow: 0 7px 14px rgba(0, 0, 0, 0.25), 0 5px 5px rgba(0, 0, 0, 0.22); }\n\ndiv > button {\n  width: 100%;\n  -ms-flex-item-align: center;\n      -ms-grid-row-align: center;\n      align-self: center; }\n\nmat-button-toggle-group > .mat-button-toggle {\n  width: 75%;\n  color: white;\n  border-radius: 6px;\n  -ms-flex-item-align: center;\n      -ms-grid-row-align: center;\n      align-self: center;\n  padding: 5px;\n  margin: 4px; }\n\n.mat-button-toggle-checked {\n  background: #0c66a1; }\n\nmat-button-toggle-group {\n  width: 90%;\n  padding: 4px;\n  margin: 4px; }\n\nmat-sidenav-content {\n  overflow: scroll; }\n"
 
 /***/ }),
 
@@ -369,7 +371,7 @@ module.exports = "<div class=\"header\">\n  <div class=\"left-part\">\n    <butt
 /***/ "./src/app/components/header/header.component.scss":
 /***/ (function(module, exports) {
 
-module.exports = ".header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between; }\n\n.header h4 {\n  color: #555; }\n\n.left-part, .right-part {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.right-part > button, .left-part > button {\n  margin: 8px; }\n\n.left-part {\n  margin: 8px; }\n"
+module.exports = ".header {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center;\n  -webkit-box-pack: justify;\n      -ms-flex-pack: justify;\n          justify-content: space-between; }\n\n.header h4 {\n  color: #555;\n  margin-left: 4px; }\n\n.left-part, .right-part {\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  -webkit-box-align: center;\n      -ms-flex-align: center;\n          align-items: center; }\n\n.right-part > button {\n  margin: 8px; }\n\n.left-part {\n  margin: 8px; }\n"
 
 /***/ }),
 
@@ -720,14 +722,14 @@ var NotificationsComponent = /** @class */ (function () {
 /***/ "./src/app/components/room/room.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-header back=\"true\" title='Room details' search=\"false\"></app-header>\n\n<!--\n<mat-card *ngFor=\"let obj of objects\">\n    <mat-card-header>\n        <mat-card-title>{{obj.name}}</mat-card-title>\n        <mat-card-subtitle>subtitle</mat-card-subtitle>\n    </mat-card-header>\n    <mat-card-content>\n    \n    </mat-card-content>\n    <mat-card-actions>\n        <button mat-button>Ok</button>\n    </mat-card-actions>\n</mat-card>\n\n-->\n\n\n<mat-card class=\"card\">\n    <mat-card-header>\n        <mat-card-title>\n            \n            <h4><mat-icon> lightbulb_outline </mat-icon>Led3: </h4>\n        </mat-card-title>\n    </mat-card-header>\n    <mat-card-content>\n        <h4 *ngIf=\"responseLed==='1'\">Status: On</h4>\n        <h4 *ngIf=\"responseLed==='0'\">Status: Off</h4>\n        <button *ngIf=\"responseLed\" mat-raised-button color=\"primary\" (click)=\"putLed(responseLed)\">Toggle</button>    \n    </mat-card-content>\n</mat-card>\n\n<br>\n\n<mat-card class=\"card\">\n    \n    <h4><mat-icon>highlight</mat-icon>Ligth: </h4>\n    <h4>{{responseLigth}}</h4>\n</mat-card>\n\n<br>\n<!--\n<mat-card class=\"card\">\n    <h4>Presence: </h4>\n    <h4>{{responsePresence}}</h4>\n</mat-card>\n-->\n\n<br>\n\n\n<mat-card class=\"card\">\n    <mat-card-header>\n        <mat-card-title>\n            <h4>Camera:</h4>\n        </mat-card-title>\n    </mat-card-header>\n    <mat-card-content>\n        \n        <canvas id=\"canvas\"></canvas>\n\n    </mat-card-content>\n    \n</mat-card>\n"
+module.exports = "<app-header back=\"true\" title='Room details' search=\"false\"></app-header>\n\n<h3 *ngIf=\"objects\">Objects:</h3>\n\n<mat-grid-list cols=\"2\" rowHeight='150px'>\n    <mat-grid-tile  *ngFor=\"let obj of objects\" >\n        \n        <mat-card class=\"card\">\n            <mat-card-header>\n                <mat-card-title>\n                    <mat-icon *ngIf=\"obj.type==='LED'\"> lightbulb_outline </mat-icon>\n                    <mat-icon *ngIf=\"obj.type==='LIGHT'\"> highlight </mat-icon>\n                    <mat-icon *ngIf=\"obj.type==='PRESENCE'\"> remove_red_eye </mat-icon>\n                    <mat-icon *ngIf=\"obj.type==='POWER'\"> power </mat-icon>\n                </mat-card-title>\n            </mat-card-header>\n            <mat-card-content>\n                <h4>{{obj.name}}</h4>\n                <button mat-raised-button *ngIf=\"obj.type==='LED' && obj.status\" (click)='putLed(obj)'>ON/OFF</button>\n                <p *ngIf=\"obj.status==='Disconnected'\">STATUS: {{obj.status}}</p>\n                <p *ngIf=\"obj.mesure\">Mesure: {{obj.mesure}}</p>\n            </mat-card-content>\n        </mat-card>\n\n    </mat-grid-tile>\n</mat-grid-list>\n\n\n<h3>Cameras:</h3>\n\n<!--\n\n<mat-card class=\"card\">\n    <mat-card-header>\n        <mat-card-title>\n            <h4>Camera:</h4>\n        </mat-card-title>\n    </mat-card-header>\n    <mat-card-content>\n        \n        <canvas id=\"canvas\"></canvas>\n\n    </mat-card-content>\n    \n</mat-card>\n-->"
 
 /***/ }),
 
 /***/ "./src/app/components/room/room.component.scss":
 /***/ (function(module, exports) {
 
-module.exports = ".card {\n  width: 600px;\n  background: lightcyan;\n  margin-left: 16px; }\n\n.cam-card {\n  height: 600px;\n  margin: 8px; }\n\ncanvas#canvas {\n  height: 100%;\n  width: 100%; }\n"
+module.exports = ".card {\n  width: 100%;\n  height: 70px;\n  margin: 16px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  border-radius: 10px;\n  cursor: pointer; }\n\ncanvas#canvas {\n  height: 100%;\n  width: 100%; }\n\n.card > mat-card-header {\n  background-image: -webkit-gradient(linear, left top, right top, from(#4cc4ff), to(#4ca6ff));\n  background-image: linear-gradient(to right, #4cc4ff, #4ca6ff);\n  -webkit-box-shadow: 0 0 0 0 #419cdb, 0 0 0 0 #4cb5ff;\n          box-shadow: 0 0 0 0 #419cdb, 0 0 0 0 #4cb5ff;\n  border-radius: 10px; }\n\n.card > mat-card-header {\n  color: white;\n  height: 70px;\n  width: 80px; }\n\n.card > mat-card-header mat-card-title mat-icon {\n  margin-left: 12px;\n  margin-top: 20px; }\n\n.card > mat-card-content {\n  margin-left: 16px;\n  width: inherit; }\n\n.card > mat-card-content button {\n    float: right; }\n\nh3 {\n  margin-left: 8px;\n  color: grey; }\n"
 
 /***/ }),
 
@@ -741,6 +743,7 @@ module.exports = ".card {\n  width: 600px;\n  background: lightcyan;\n  margin-l
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_IotObject__ = __webpack_require__("./src/app/models/IotObject.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_5__services_objects_service__ = __webpack_require__("./src/app/services/objects.service.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -750,98 +753,145 @@ var __decorate = (this && this.__decorate) || function (decorators, target, key,
 var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
+var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, generator) {
+    return new (P || (P = Promise))(function (resolve, reject) {
+        function fulfilled(value) { try { step(generator.next(value)); } catch (e) { reject(e); } }
+        function rejected(value) { try { step(generator["throw"](value)); } catch (e) { reject(e); } }
+        function step(result) { result.done ? resolve(result.value) : new P(function (resolve) { resolve(result.value); }).then(fulfilled, rejected); }
+        step((generator = generator.apply(thisArg, _arguments || [])).next());
+    });
+};
+var __generator = (this && this.__generator) || function (thisArg, body) {
+    var _ = { label: 0, sent: function() { if (t[0] & 1) throw t[1]; return t[1]; }, trys: [], ops: [] }, f, y, t, g;
+    return g = { next: verb(0), "throw": verb(1), "return": verb(2) }, typeof Symbol === "function" && (g[Symbol.iterator] = function() { return this; }), g;
+    function verb(n) { return function (v) { return step([n, v]); }; }
+    function step(op) {
+        if (f) throw new TypeError("Generator is already executing.");
+        while (_) try {
+            if (f = 1, y && (t = y[op[0] & 2 ? "return" : op[0] ? "throw" : "next"]) && !(t = t.call(y, op[1])).done) return t;
+            if (y = 0, t) op = [0, t.value];
+            switch (op[0]) {
+                case 0: case 1: t = op; break;
+                case 4: _.label++; return { value: op[1], done: false };
+                case 5: _.label++; y = op[1]; op = [0]; continue;
+                case 7: op = _.ops.pop(); _.trys.pop(); continue;
+                default:
+                    if (!(t = _.trys, t = t.length > 0 && t[t.length - 1]) && (op[0] === 6 || op[0] === 2)) { _ = 0; continue; }
+                    if (op[0] === 3 && (!t || (op[1] > t[0] && op[1] < t[3]))) { _.label = op[1]; break; }
+                    if (op[0] === 6 && _.label < t[1]) { _.label = t[1]; t = op; break; }
+                    if (t && _.label < t[2]) { _.label = t[2]; _.ops.push(op); break; }
+                    if (t[2]) _.ops.pop();
+                    _.trys.pop(); continue;
+            }
+            op = body.call(thisArg, _);
+        } catch (e) { op = [6, e]; y = 0; } finally { f = t = 0; }
+        if (op[0] & 5) throw op[1]; return { value: op[0] ? op[1] : void 0, done: true };
+    }
+};
+
 
 
 
 
 
 var RoomComponent = /** @class */ (function () {
-    /** */
-    function RoomComponent(roomService, snackBar, router) {
+    function RoomComponent(roomService, snackBar, router, objectsService) {
         this.roomService = roomService;
         this.snackBar = snackBar;
         this.router = router;
+        this.objectsService = objectsService;
+        this.objects = [];
+        this.cameras = [];
     }
     RoomComponent.prototype.ngOnInit = function () {
-        // const roomId = this.router.snapshot.params.roomId;
-        // const homeId = this.router.snapshot.params.homeId;
-        // this.getRoom(homeId, roomId, this.getObjects);
-        // this.getLed();
-        // this.getLigth();
-        // this.getPresence();
-        var canvas = document.getElementById('canvas');
-        var client = new WebSocket('ws://10.0.88.57:9999');
-        var player = new jsmpeg(client, { canvas: canvas });
+        var roomId = this.router.snapshot.params.roomId;
+        var homeId = this.router.snapshot.params.homeId;
+        this.getRoom(homeId, roomId);
+        // const canvas = document.getElementById('canvas');
+        // const  client = new WebSocket('ws://10.0.88.57:9999');
+        // const  player = new jsmpeg(client, { canvas: canvas });
     };
-    /********** */
-    // led
-    RoomComponent.prototype.getLed = function () {
+    RoomComponent.prototype.putLed = function (obj) {
         var _this = this;
-        this.roomService.getLed()
-            .subscribe(function (res) { return _this.responseLed = res; });
-        console.log('getLed led=' + this.responseLed);
-    };
-    RoomComponent.prototype.putLed = function (val) {
-        var _this = this;
-        if (val === '1') {
+        var val;
+        this.getObjectMesure(obj);
+        if (obj.mesure === '1') {
             val = '0';
         }
         else {
             val = '1';
         }
-        this.roomService.putLed(val)
-            .subscribe(function (_) { return _this.getLed(); });
-        console.log("comp putLed called..." + val);
+        console.log('putLed..', val);
+        this.objectsService.putLed(val)
+            .subscribe(function (res) {
+            _this.getObjectMesure(obj);
+        }, function (error) {
+            _this.handleError(error, 'Unable to toggle led');
+        });
     };
-    // ligth
-    RoomComponent.prototype.getLigth = function () {
-        var _this = this;
-        this.roomService.getLigth()
-            .subscribe(function (res) { return _this.responseLigth = res; });
-        // if (this.responseLed === '1') {
-        //   if (Number(this.responseLigth) > 500) {
-        //     this.putLed('0');
-        //     console.log('set light to 0');
-        //   }
-        // } else if (this.responseLed === '0') {
-        //     if (Number(this.responseLigth) < 500) {
-        //       this.putLed('1');
-        //       console.log('set light to 1');
-        //     }
-        // }
+    RoomComponent.prototype.getObjectMesure = function (object) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('getObjectMesure...');
+                        return [4 /*yield*/, this.objectsService.getObjectMesure(object)
+                                .subscribe(function (res) {
+                                object.mesure = res;
+                                object.status = 'Connected';
+                            }, function (error) {
+                                object.status = 'Disconnected';
+                                _this.handleError(error, "Unable to get " + object.name + " value");
+                            })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
     };
-    // presence
-    RoomComponent.prototype.getPresence = function () {
-        var _this = this;
-        this.roomService.getPresence()
-            .subscribe(function (res) { return _this.responsePresence = res; });
-    };
-    /********* */
     RoomComponent.prototype.handleError = function (error, message) {
         console.error(error);
         this.snackBar.open(message, 'close', { duration: 3000 });
     };
     RoomComponent.prototype.getObjects = function (objectsIds) {
-        var _this = this;
-        objectsIds.forEach(function (objectId) {
-            _this.roomService.getServerByObjectId(objectId)
-                .subscribe(function (res) {
-                var obj = _this.getObject(res, objectId);
-                _this.objects.push(obj);
-            }, function (error) {
-                _this.handleError(error, 'Unable to get objects');
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0:
+                        console.log('getObjects...');
+                        return [4 /*yield*/, objectsIds.forEach(function (objectId) {
+                                console.log('getObjects...', objectId);
+                                _this.roomService.getServerByObjectId(objectId)
+                                    .subscribe(function (res) {
+                                    var server = res;
+                                    console.log('getObjects server: ', server);
+                                    var object = _this.getObject(server, objectId);
+                                    _this.objects.push(object);
+                                    console.log('this.objects:', _this.objects);
+                                    _this.getObjectMesure(object);
+                                }, function (error) {
+                                    _this.handleError(error, 'Unable to get objects');
+                                });
+                            })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
             });
         });
     };
     RoomComponent.prototype.getObject = function (server, objectId) {
-        console.log(server);
+        console.log('getObject server: ', server);
         var theOject = new __WEBPACK_IMPORTED_MODULE_4__models_IotObject__["a" /* IotObject */]();
-        server.beacons.objects.some(function (_object) {
-            if (_object._id === objectId) {
-                theOject.id = _object.id;
-                theOject.name = _object.name;
-                theOject.path = _object.path;
-                theOject.type = _object.type.toUpperCase();
+        server.beacons[0].objects.some(function (object) {
+            if (object._id === objectId) {
+                theOject.id = object._id;
+                theOject.name = object.name;
+                theOject.path = object.path;
+                theOject.type = object.type.toUpperCase();
                 return true;
             }
         });
@@ -850,17 +900,26 @@ var RoomComponent = /** @class */ (function () {
         theOject.server_ipv4 = server.ipv4;
         theOject.server_lipv4 = server.lipv4;
         theOject.ipv6 = server.beacons[0].ipv6;
-        console.log('obj2:', theOject);
+        console.log('obj: ', theOject);
         return theOject;
     };
-    RoomComponent.prototype.getRoom = function (homeId, roomId, callback) {
-        var _this = this;
-        this.roomService.getRoom(homeId, roomId)
-            .subscribe(function (res) {
-            _this.room = res;
-            callback(_this.room.objects);
-        }, function (error) {
-            _this.handleError(error, 'Unable to get room');
+    RoomComponent.prototype.getRoom = function (homeId, roomId) {
+        return __awaiter(this, void 0, void 0, function () {
+            var _this = this;
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, this.roomService.getRoom(homeId, roomId)
+                            .subscribe(function (res) {
+                            _this.room = res;
+                            _this.getObjects(_this.room.objects);
+                        }, function (error) {
+                            _this.handleError(error, 'Unable to get room');
+                        })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
         });
     };
     RoomComponent = __decorate([
@@ -871,7 +930,8 @@ var RoomComponent = /** @class */ (function () {
         }),
         __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_room_service__["a" /* RoomService */],
             __WEBPACK_IMPORTED_MODULE_2__angular_material__["m" /* MatSnackBar */],
-            __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */]])
+            __WEBPACK_IMPORTED_MODULE_3__angular_router__["a" /* ActivatedRoute */],
+            __WEBPACK_IMPORTED_MODULE_5__services_objects_service__["a" /* ObjectsService */]])
     ], RoomComponent);
     return RoomComponent;
 }());
@@ -1451,6 +1511,7 @@ var IotObject = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_3__angular_material__ = __webpack_require__("./node_modules/@angular/material/esm5/material.es5.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_4__models_Consts__ = __webpack_require__("./src/app/models/Consts.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -1464,12 +1525,12 @@ var __metadata = (this && this.__metadata) || function (k, v) {
 
 
 
+
 var AuthService = /** @class */ (function () {
     function AuthService(httpClient, router, snackBar) {
         this.httpClient = httpClient;
         this.router = router;
         this.snackBar = snackBar;
-        this.BASE_URL = 'http://localhost:3000';
         this.NAME_KEY = 'name';
         this.TOKEN_KEY = 'token';
     }
@@ -1502,7 +1563,7 @@ var AuthService = /** @class */ (function () {
     AuthService.prototype.signup = function (user) {
         var _this = this;
         delete user.confirmPassword;
-        this.httpClient.post(this.BASE_URL + '/signup', user)
+        this.httpClient.post(__WEBPACK_IMPORTED_MODULE_4__models_Consts__["a" /* Consts */].BASE_URL + '/signup', user)
             .subscribe(function (res) {
             _this.authenticate(res);
         }, function (error) {
@@ -1511,7 +1572,7 @@ var AuthService = /** @class */ (function () {
     };
     AuthService.prototype.signin = function (loginData) {
         var _this = this;
-        this.httpClient.post(this.BASE_URL + '/signin', loginData)
+        this.httpClient.post(__WEBPACK_IMPORTED_MODULE_4__models_Consts__["a" /* Consts */].BASE_URL + '/signin', loginData)
             .subscribe(function (res) {
             console.log(res);
             _this.authenticate(res);
@@ -1588,6 +1649,49 @@ var HomesService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/services/objects.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ObjectsService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__models_Consts__ = __webpack_require__("./src/app/models/Consts.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var ObjectsService = /** @class */ (function () {
+    function ObjectsService(httpClient) {
+        this.httpClient = httpClient;
+        this.BASE_URL = __WEBPACK_IMPORTED_MODULE_1__models_Consts__["a" /* Consts */].BASE_URL + '/api';
+    }
+    ObjectsService.prototype.getObjectMesure = function (object) {
+        console.log(object.path, object.type);
+        return this.httpClient.get(this.BASE_URL + object.path, { responseType: 'text' });
+    };
+    ObjectsService.prototype.putLed = function (val) {
+        return this.httpClient.put(this.BASE_URL + '/lights/led3', { 'payload': val }, { responseType: 'text' });
+    };
+    ObjectsService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_2__angular_common_http__["a" /* HttpClient */]])
+    ], ObjectsService);
+    return ObjectsService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/room.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1617,24 +1721,6 @@ var RoomService = /** @class */ (function () {
     };
     RoomService.prototype.getRoom = function (homeId, roomId) {
         return this.httpClient.get(__WEBPACK_IMPORTED_MODULE_2__models_Consts__["a" /* Consts */].BASE_URL + '/user/' + homeId + '/rooms/' + roomId);
-    };
-    /*********** */
-    RoomService.prototype.getLed = function () {
-        console.log('getLed...');
-        return this.httpClient.get(__WEBPACK_IMPORTED_MODULE_2__models_Consts__["a" /* Consts */].BASE_URL + '/api/lights/led3', { responseType: 'text' });
-    };
-    RoomService.prototype.putLed = function (value) {
-        console.log("serv putLed..." + value);
-        return this.httpClient.put(__WEBPACK_IMPORTED_MODULE_2__models_Consts__["a" /* Consts */].BASE_URL + '/api/lights/led3', { 'payload': value }, { responseType: 'text' });
-    };
-    // ligth
-    RoomService.prototype.getLigth = function () {
-        console.log('getLight...');
-        return this.httpClient.get(__WEBPACK_IMPORTED_MODULE_2__models_Consts__["a" /* Consts */].BASE_URL + '/api/lights/adc', { responseType: 'text' });
-    };
-    RoomService.prototype.getPresence = function () {
-        console.log('getPresence...');
-        return this.httpClient.get(__WEBPACK_IMPORTED_MODULE_2__models_Consts__["a" /* Consts */].BASE_URL + '/api/lights/presence', { responseType: 'text' });
     };
     RoomService = __decorate([
         Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),

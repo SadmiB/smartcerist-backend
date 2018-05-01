@@ -1,6 +1,6 @@
 import mongoose from 'mongoose';
 import { BeaconSchema } from './beaconsModel';
-import { CamerasSchema } from './camerasModel';
+import { CameraSchema } from './camerasModel';
 
 const Schema = mongoose.Schema;
 
@@ -23,5 +23,5 @@ export const ServerSchema = new Schema({
         type: String
     },
     beacons: [BeaconSchema],
-    cameras: [CamerasSchema]
+    cameras: [CameraSchema]
 });
