@@ -13,7 +13,9 @@ export const CameraSchema = new Schema({
     },
     ipv6: {
         type: String,
-        required: "Specify an ipv6."
+    },
+    port:{
+        type: Number
     },
     username:{
         type: String,

@@ -42,7 +42,7 @@ const iotRoutes = (app) => {
           console.log('This will still run.');
         }, 10000);
         requ.on('response', function(resp) {
-          console.log('data sent...');
+          resp.pipe(process.stdout);          
           var textResp = resp.payload.toString('utf8');
           console.log('led3 : ' + textResp);
           res.send(textResp);

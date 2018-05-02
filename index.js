@@ -3,6 +3,7 @@ import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import path from 'path';
+import Stream from 'node-rtsp-stream';
 
 import usersRoutes from './src/routes/usersRoutes';
 import homesRoutes from './src/routes/homesRoutes';
@@ -15,7 +16,7 @@ import { UserSchema } from './src/models/usersModel';
 import eventsRoutes from './src/routes/eventsRoutes';
 import iotRoutes from './src/routes/api';
 
-var app = express();
+let app = express();
 const User = mongoose.model('User', UserSchema)
 
 
@@ -54,6 +55,7 @@ app.use(express.static('public'));
 // Angular DIST output folder
 app.use(express.static(path.join(__dirname, 'dist')));
 
+
 app.get('/', (req, res) => 
     res.send(`server is running in port: ${PORT}`)
 );
@@ -68,7 +70,7 @@ app.post('/signup', async (req, res) => {
 
 app.post('/signin', async (req, res) => {
     console.log('signin...');
-    var user = await User.findOne({email: req.body.email});
+    let user = await User.findOne({email: req.body.email});
     
     if(!user) 
         sendAuthError(res);
@@ -79,7 +81,7 @@ app.post('/signin', async (req, res) => {
 });
 
 function sendToken(user, res) {
-    var token = jwt.sign(user.id, '123'); // in production dont hard code the second argument
+    let token = jwt.sign(user.id, '123'); // in production dont hard code the second argument
     res.json({firstName: user.firstName, token: token});
 }
 
@@ -88,8 +90,14 @@ function sendAuthError(res) {
     return res.json({success: false, message: 'email or password incorrect'});
 }
 
+let stream = new Stream({
+    name: 'name',
+    streamUrl: 'rtsp://admin:smartBuilding2017@10.0.88.57:554/cam/realmonitor?channel=1&subtype=0',
+    wsPort: 9999
+});
 
 
-var server = app.listen(PORT, () =>
+
+let server = app.listen(PORT, () =>
     console.log(`server is running in port: ${PORT}`)
 );
