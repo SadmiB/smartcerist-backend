@@ -14,6 +14,8 @@ import serversRoutes from './src/routes/serversRoutes';
 import { UserSchema } from './src/models/usersModel';
 import eventsRoutes from './src/routes/eventsRoutes';
 import iotRoutes from './src/routes/api';
+import _router from './src/routes/uploadRoutes'
+var appRoutes = require('./src/routes/uploadRoutes');
 
 var app = express();
 const User = mongoose.model('User', UserSchema)
@@ -27,9 +29,10 @@ const PORT = 3000;
 
 // to allow angular client
 app.use((req, res, next) => {
-    res.header("Access-Control-Allow-Origin", "*");
-    res.header("Access-Control-Allow-Methods", "GET, POST, PUT, DELETE");
-    res.header("Access-Control-Allow-Headers", "Origin, X-Requested-with, Content-Type, Accept, Authorization");
+    res.setHeader('Access-Control-Allow-Origin', '*');
+    res.header('Access-Control-Allow-Credentials', true);
+    res.setHeader('Access-Control-Allow-Headers', 'Origin, X-Requested-With, Content-Type, Authorization,Accept');
+    res.setHeader('Access-Control-Allow-Methods', 'POST, GET, PATCH, DELETE, OPTIONS, PUT');
     next();
 });
 
@@ -48,6 +51,8 @@ objectsRoutes(app);
 eventsRoutes(app);
 iotRoutes(app);
 
+app.use('/', appRoutes);
+
 //serving static files
 app.use(express.static('public'));
 
@@ -62,6 +67,8 @@ app.get('/', (req, res) =>
 app.post('/signup', async (req, res) => {
     console.log('signup...');
     let newUser = new User(req.body)
+    newUser.socketRooms.push(newUser._id);
+    console.log(newUser);
     let user = await newUser.save();
     sendToken(user, res);
 });
@@ -72,10 +79,12 @@ app.post('/signin', async (req, res) => {
     
     if(!user) 
         sendAuthError(res);
+        console.log(res)
     if (user.password == req.body.password)
         sendToken(user, res);
     else
-        sendAuthError(res);
+        // sendAuthError(res);
+        console.log(res)
 });
 
 function sendToken(user, res) {
@@ -88,8 +97,26 @@ function sendAuthError(res) {
     return res.json({success: false, message: 'email or password incorrect'});
 }
 
+/******* Socket.IO *******************/
+let http = require('http');
+let server = http.Server(app);
+let socketIO = require('socket.io');
+let io = socketIO(server);
+io.on('connection', (socket) => {
+    console.log('user connected');
 
+    socket.on('new-message', (message) => {
+        console.log(message);
+        io.emit('new-message', message);
+    });
 
-var server = app.listen(PORT, () =>
+    socket.on('add-room', (roomId)=>{
+        console.log("add-room event : " + roomId)
+        io.emit('add-room', "a new room is added");
+        console.log("event sent")
+    });
+});
+
+server.listen(PORT, () =>
     console.log(`server is running in port: ${PORT}`)
 );

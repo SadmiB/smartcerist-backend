@@ -11,14 +11,7 @@ export const RoomSchema = new Schema({
         type: String
     },
     objects : [Schema.Types.ObjectId],
-    users: [{
-        userId: {
-            type: Schema.Types.ObjectId
-        },
-        permission: {
-            type: String,
-            lowercase: true
-        }
-    }]
+    users: [Schema.Types.ObjectId]
+    
 });
 
