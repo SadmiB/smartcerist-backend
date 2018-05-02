@@ -38,7 +38,11 @@ const iotRoutes = (app) => {
     try {
         console.log('GET led3...');  
         const requ = coap.request(coapConnection);
+        setTimeout(() => {
+          console.log('This will still run.');
+        }, 10000);
         requ.on('response', function(resp) {
+          resp.pipe(process.stdout);          
           var textResp = resp.payload.toString('utf8');
           console.log('led3 : ' + textResp);
           res.send(textResp);
@@ -49,7 +53,6 @@ const iotRoutes = (app) => {
     }
   })
 
-  
   // Put led3 2001:4340:1010:22:2ca:29ff:fea2:9512
   .put( (req, res) => {
     var coapConnection = {
@@ -85,7 +88,7 @@ const iotRoutes = (app) => {
       pathname: '/lights/adc',
       method: 'GET',
       confirmable: true
-    }
+    }    
     try {
       console.log('GET ligth...');  
       const requ = coap.request(coapConnection);
@@ -105,10 +108,10 @@ const iotRoutes = (app) => {
   .get( (req, res) => {
     var coapConnection = {
       host: '2001:4340:1010:22:02a0:44ff:fe66:6b6e',
-      pathname: '/lights/led3',
+      pathname: '/lights/presence',
       method: 'GET',
       confirmable: true
-    }
+    }    
     try {
       console.log('GET presence...');  
       const requ = coap.request(coapConnection);
@@ -122,6 +125,31 @@ const iotRoutes = (app) => {
       console.log(error);
     }
   });
+
+  app.route('/api/lights/power')
+  .get( (req, res) => {
+    var coapConnection = {
+      host: '2001:4340:1010:22:027f:08ff:fec7:69b0',
+      pathname: '/lights/power',
+      method: 'GET',
+      confirmable: true
+    }
+
+    
+    try {
+      console.log('GET power...');  
+      const requ = coap.request(coapConnection);
+      requ.on('response', function(resp) {
+        resp.pipe(process.stdout);
+        var textResp = resp.payload.toString('utf8');
+        res.send(textResp);
+      });
+      requ.end();
+    } catch (error) {
+      console.log(error);
+    }
+  });
+
 
 }
 

@@ -107,7 +107,7 @@ export const getHomeRooms = async (req, res) => {
         let home = await Home.findById(req.params.homeId)
         res.json(home.rooms)
     } catch (error) {
-        res.send(rooms)
+        res.send(error)
     }
 };
 
