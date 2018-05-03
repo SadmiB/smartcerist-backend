@@ -9,7 +9,7 @@ export const EventSchema = new Schema({
         required:"Specify the type of event"
     },
     date:{
-        type: Date,
+        type: String,
         // required:"Specify the date"
     },
 

@@ -178,8 +178,8 @@ export const getRoomUsers = async (req,res) => {
         let room = home.rooms.id(req.params.roomId);
         let users = room.users;
         users.forEach(user => {
-            if(!roomUsers.has(user.userId.toString()))
-                roomUsers.add(user.userId.toString()) ;           
+            if(!roomUsers.has(user.toString()))
+                roomUsers.add(user.toString()) ;           
         });
         let roomUsersArray = Array.from(roomUsers);
         let usersResult = await User.find({_id: {$in: roomUsersArray}})

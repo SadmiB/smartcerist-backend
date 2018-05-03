@@ -40,7 +40,7 @@ app.use((req, res, next) => {
 
 // mongodb connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://sadmi:bouhafs@localhost/scdb');
+mongoose.connect('mongodb://localhost/scdb');
 
 usersRoutes(app);
 homesRoutes(app);
@@ -114,7 +114,7 @@ io.on('connection', (socket) => {
 
     socket.on('add-room', (roomId)=>{
         console.log("add-room event : " + roomId)
-        io.emit('add-room', "a new room is added");
+        io.emit('add-room', "a new add notification");
         console.log("event sent")
     });
 });
