@@ -48,3 +48,13 @@ export const  addServerCamera  = async (req, res) => {
         res.send(error)
     }
 };
+
+export const addServerByCameraId = async (req, res) => {
+    try {
+        let server = await _Server.findOne({'cameras': {$elemMatch: {_id: req.params.cameraId }}}, {'cameras.$': 1})
+        console.log('getServerByCamerasId: ', server)        
+        res.json(server)
+    } catch (error) {
+        res.send(error)
+    }
+}
