@@ -181,12 +181,18 @@ var AppComponent = /** @class */ (function () {
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_27__components_room_room_component__ = __webpack_require__("./src/app/components/room/room.component.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_28__services_room_service__ = __webpack_require__("./src/app/services/room.service.ts");
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_29__services_objects_service__ = __webpack_require__("./src/app/services/objects.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_30__services_cameras_service__ = __webpack_require__("./src/app/services/cameras.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_31__components_objects_objects_component__ = __webpack_require__("./src/app/components/objects/objects.component.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_32__components_cameras_cameras_component__ = __webpack_require__("./src/app/components/cameras/cameras.component.ts");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
     else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
     return c > 3 && r && Object.defineProperty(target, key, r), r;
 };
+
+
+
 
 
 
@@ -239,6 +245,8 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_22__components_history_history_component__["a" /* HistoryComponent */],
                 __WEBPACK_IMPORTED_MODULE_26__components_home_home_component__["a" /* HomeComponent */],
                 __WEBPACK_IMPORTED_MODULE_27__components_room_room_component__["a" /* RoomComponent */],
+                __WEBPACK_IMPORTED_MODULE_31__components_objects_objects_component__["a" /* ObjectsComponent */],
+                __WEBPACK_IMPORTED_MODULE_32__components_cameras_cameras_component__["a" /* CamerasComponent */],
             ],
             imports: [
                 __WEBPACK_IMPORTED_MODULE_0__angular_platform_browser__["a" /* BrowserModule */],
@@ -250,7 +258,7 @@ var AppModule = /** @class */ (function () {
                 __WEBPACK_IMPORTED_MODULE_12__angular_common_http__["b" /* HttpClientModule */],
                 __WEBPACK_IMPORTED_MODULE_24__angular_material_paginator__["b" /* MatPaginatorModule */],
             ],
-            providers: [__WEBPACK_IMPORTED_MODULE_11__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_13__services_homes_service__["a" /* HomesService */], __WEBPACK_IMPORTED_MODULE_25__services_rooms_service__["a" /* RoomsService */], __WEBPACK_IMPORTED_MODULE_28__services_room_service__["a" /* RoomService */], __WEBPACK_IMPORTED_MODULE_23__services_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_29__services_objects_service__["a" /* ObjectsService */]],
+            providers: [__WEBPACK_IMPORTED_MODULE_11__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_13__services_homes_service__["a" /* HomesService */], __WEBPACK_IMPORTED_MODULE_25__services_rooms_service__["a" /* RoomsService */], __WEBPACK_IMPORTED_MODULE_28__services_room_service__["a" /* RoomService */], __WEBPACK_IMPORTED_MODULE_23__services_user_service__["a" /* UserService */], __WEBPACK_IMPORTED_MODULE_29__services_objects_service__["a" /* ObjectsService */], __WEBPACK_IMPORTED_MODULE_30__services_cameras_service__["a" /* CamerasService */]],
             bootstrap: [__WEBPACK_IMPORTED_MODULE_4__app_component__["a" /* AppComponent */]]
         })
     ], AppModule);
@@ -311,6 +319,56 @@ var AnalyticsComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/cameras/cameras.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  cameras works!\n</p>\n"
+
+/***/ }),
+
+/***/ "./src/app/components/cameras/cameras.component.scss":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/components/cameras/cameras.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CamerasComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var CamerasComponent = /** @class */ (function () {
+    function CamerasComponent() {
+    }
+    CamerasComponent.prototype.ngOnInit = function () {
+    };
+    CamerasComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-cameras',
+            template: __webpack_require__("./src/app/components/cameras/cameras.component.html"),
+            styles: [__webpack_require__("./src/app/components/cameras/cameras.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], CamerasComponent);
+    return CamerasComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/components/dashboard/dashboard.component.html":
 /***/ (function(module, exports) {
 
@@ -331,6 +389,8 @@ module.exports = ".container {\n  position: absolute;\n  top: 0px;\n  left: 0px;
 "use strict";
 /* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return DashboardComponent; });
 /* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__services_auth_service__ = __webpack_require__("./src/app/services/auth.service.ts");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__angular_router__ = __webpack_require__("./node_modules/@angular/router/esm5/router.js");
 var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
     var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
     if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
@@ -341,8 +401,15 @@ var __metadata = (this && this.__metadata) || function (k, v) {
     if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
 };
 
+
+
 var DashboardComponent = /** @class */ (function () {
-    function DashboardComponent() {
+    function DashboardComponent(auth, router) {
+        this.auth = auth;
+        this.router = router;
+        if (!auth.isAuthenticated) {
+            this.router.navigate(['/signin']);
+        }
     }
     DashboardComponent.prototype.ngOnInit = function () {
     };
@@ -352,7 +419,7 @@ var DashboardComponent = /** @class */ (function () {
             template: __webpack_require__("./src/app/components/dashboard/dashboard.component.html"),
             styles: [__webpack_require__("./src/app/components/dashboard/dashboard.component.scss")]
         }),
-        __metadata("design:paramtypes", [])
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__services_auth_service__["a" /* AuthService */], __WEBPACK_IMPORTED_MODULE_2__angular_router__["b" /* Router */]])
     ], DashboardComponent);
     return DashboardComponent;
 }());
@@ -719,17 +786,67 @@ var NotificationsComponent = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/components/objects/objects.component.html":
+/***/ (function(module, exports) {
+
+module.exports = "<p>\n  objects works!\n</p>\n"
+
+/***/ }),
+
+/***/ "./src/app/components/objects/objects.component.scss":
+/***/ (function(module, exports) {
+
+module.exports = ""
+
+/***/ }),
+
+/***/ "./src/app/components/objects/objects.component.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return ObjectsComponent; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+var ObjectsComponent = /** @class */ (function () {
+    function ObjectsComponent() {
+    }
+    ObjectsComponent.prototype.ngOnInit = function () {
+    };
+    ObjectsComponent = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["n" /* Component */])({
+            selector: 'app-objects',
+            template: __webpack_require__("./src/app/components/objects/objects.component.html"),
+            styles: [__webpack_require__("./src/app/components/objects/objects.component.scss")]
+        }),
+        __metadata("design:paramtypes", [])
+    ], ObjectsComponent);
+    return ObjectsComponent;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/components/room/room.component.html":
 /***/ (function(module, exports) {
 
-module.exports = "<app-header back=\"true\" title='Room details' search=\"false\"></app-header>\n\n<h3 *ngIf=\"objects\">Objects:</h3>\n\n<mat-grid-list cols=\"2\" rowHeight='150px'>\n    <mat-grid-tile  *ngFor=\"let obj of objects\" >\n        \n        <mat-card class=\"card\">\n            <mat-card-header>\n                <mat-card-title>\n                    <mat-icon *ngIf=\"obj.type==='LED'\"> lightbulb_outline </mat-icon>\n                    <mat-icon *ngIf=\"obj.type==='LIGHT'\"> highlight </mat-icon>\n                    <mat-icon *ngIf=\"obj.type==='PRESENCE'\"> remove_red_eye </mat-icon>\n                    <mat-icon *ngIf=\"obj.type==='POWER'\"> power </mat-icon>\n                </mat-card-title>\n            </mat-card-header>\n            <mat-card-content>\n                <h4>{{obj.name}}</h4>\n                <button mat-raised-button *ngIf=\"obj.type==='LED' && obj.status\" (click)='putLed(obj)'>ON/OFF</button>\n                <p *ngIf=\"obj.status==='Disconnected'\">STATUS: {{obj.status}}</p>\n                <p *ngIf=\"obj.mesure\">Mesure: {{obj.mesure}}</p>\n            </mat-card-content>\n        </mat-card>\n\n    </mat-grid-tile>\n</mat-grid-list>\n\n\n<h3>Cameras:</h3>\n\n<!--\n\n<mat-card class=\"card\">\n    <mat-card-header>\n        <mat-card-title>\n            <h4>Camera:</h4>\n        </mat-card-title>\n    </mat-card-header>\n    <mat-card-content>\n        \n        <canvas id=\"canvas\"></canvas>\n\n    </mat-card-content>\n    \n</mat-card>\n-->"
+module.exports = "<app-header back=\"true\" title='Room details' search=\"false\"></app-header>\n\n<h3 *ngIf=\"objects\">Objects:</h3>\n\n<mat-grid-list cols=\"2\" rowHeight='150px'>\n    <mat-grid-tile  *ngFor=\"let obj of objects\" >\n        \n        <mat-card class=\"card\">\n            <mat-card-header>\n                <mat-card-title>\n                    <mat-icon *ngIf=\"obj.type==='LED'\"> lightbulb_outline </mat-icon>\n                    <mat-icon *ngIf=\"obj.type==='LIGHT'\"> highlight </mat-icon>\n                    <mat-icon *ngIf=\"obj.type==='PRESENCE'\"> remove_red_eye </mat-icon>\n                    <mat-icon *ngIf=\"obj.type==='POWER'\" > power </mat-icon>\n                </mat-card-title>\n            </mat-card-header>\n            <mat-card-content>\n                <h4>{{obj.name}}</h4>\n                <button mat-raised-button *ngIf=\"obj.type==='LED' && obj.status\" (click)='putLed(obj)'>ON/OFF</button>\n                <p *ngIf=\"obj.status==='Disconnected'\">STATUS: {{obj.status}}</p>\n                <p *ngIf=\"obj.mesure\">Measure: {{obj.mesure}}</p>\n            </mat-card-content>\n        </mat-card>\n\n    </mat-grid-tile>\n</mat-grid-list>\n\n\n<h3 *ngIf=\"cameras\">Cameras:</h3>\n\n\n<mat-card class=\"cam-card\">\n    <mat-card-header>\n        <mat-card-title>\n            <h4>Dahua Camera:</h4>\n        </mat-card-title>\n    </mat-card-header>\n    <mat-card-content>\n        <canvas id=\"canvas\"></canvas>\n    </mat-card-content>\n</mat-card>"
 
 /***/ }),
 
 /***/ "./src/app/components/room/room.component.scss":
 /***/ (function(module, exports) {
 
-module.exports = ".card {\n  width: 100%;\n  height: 70px;\n  margin: 16px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  border-radius: 10px;\n  cursor: pointer; }\n\ncanvas#canvas {\n  height: 100%;\n  width: 100%; }\n\n.card > mat-card-header {\n  background-image: -webkit-gradient(linear, left top, right top, from(#4cc4ff), to(#4ca6ff));\n  background-image: linear-gradient(to right, #4cc4ff, #4ca6ff);\n  -webkit-box-shadow: 0 0 0 0 #419cdb, 0 0 0 0 #4cb5ff;\n          box-shadow: 0 0 0 0 #419cdb, 0 0 0 0 #4cb5ff;\n  border-radius: 10px; }\n\n.card > mat-card-header {\n  color: white;\n  height: 70px;\n  width: 80px; }\n\n.card > mat-card-header mat-card-title mat-icon {\n  margin-left: 12px;\n  margin-top: 20px; }\n\n.card > mat-card-content {\n  margin-left: 16px;\n  width: inherit; }\n\n.card > mat-card-content button {\n    float: right; }\n\nh3 {\n  margin-left: 8px;\n  color: grey; }\n"
+module.exports = ".card {\n  width: 100%;\n  height: 70px;\n  margin: 16px;\n  display: -webkit-box;\n  display: -ms-flexbox;\n  display: flex;\n  border-radius: 10px;\n  cursor: pointer; }\n\ncanvas#canvas {\n  height: 100%;\n  width: 100%; }\n\n.card > mat-card-header {\n  background-image: -webkit-gradient(linear, left top, right top, from(#4cc4ff), to(#4ca6ff));\n  background-image: linear-gradient(to right, #4cc4ff, #4ca6ff);\n  -webkit-box-shadow: 0 0 0 0 #419cdb, 0 0 0 0 #4cb5ff;\n          box-shadow: 0 0 0 0 #419cdb, 0 0 0 0 #4cb5ff;\n  border-radius: 10px; }\n\n.card > mat-card-header {\n  color: white;\n  height: 70px;\n  width: 80px; }\n\n.card > mat-card-header mat-card-title mat-icon {\n  margin-left: 12px;\n  margin-top: 20px; }\n\n.card > mat-card-content {\n  margin-left: 16px;\n  width: inherit; }\n\n.card > mat-card-content button {\n    float: right; }\n\nh3 {\n  margin-left: 8px;\n  color: grey; }\n\n.cam-card {\n  width: 90%;\n  height: 100%;\n  margin: 16px; }\n"
 
 /***/ }),
 
@@ -807,9 +924,9 @@ var RoomComponent = /** @class */ (function () {
         var roomId = this.router.snapshot.params.roomId;
         var homeId = this.router.snapshot.params.homeId;
         this.getRoom(homeId, roomId);
-        // const canvas = document.getElementById('canvas');
-        // const  client = new WebSocket('ws://10.0.88.57:9999');
-        // const  player = new jsmpeg(client, { canvas: canvas });
+        var canvas = document.getElementById('canvas');
+        var client = new WebSocket('ws://10.1.88.167:9999');
+        var player = new jsmpeg(client, { canvas: canvas });
     };
     RoomComponent.prototype.putLed = function (obj) {
         var _this = this;
@@ -836,6 +953,7 @@ var RoomComponent = /** @class */ (function () {
                 switch (_a.label) {
                     case 0:
                         console.log('getObjectMesure...');
+                        if (!(object.type !== 'POWER')) return [3 /*break*/, 2];
                         return [4 /*yield*/, this.objectsService.getObjectMesure(object)
                                 .subscribe(function (res) {
                                 object.mesure = res;
@@ -846,7 +964,8 @@ var RoomComponent = /** @class */ (function () {
                             })];
                     case 1:
                         _a.sent();
-                        return [2 /*return*/];
+                        _a.label = 2;
+                    case 2: return [2 /*return*/];
                 }
             });
         });
@@ -864,7 +983,7 @@ var RoomComponent = /** @class */ (function () {
                         console.log('getObjects...');
                         return [4 /*yield*/, objectsIds.forEach(function (objectId) {
                                 console.log('getObjects...', objectId);
-                                _this.roomService.getServerByObjectId(objectId)
+                                _this.objectsService.getServerByObjectId(objectId)
                                     .subscribe(function (res) {
                                     var server = res;
                                     console.log('getObjects server: ', server);
@@ -876,6 +995,19 @@ var RoomComponent = /** @class */ (function () {
                                     _this.handleError(error, 'Unable to get objects');
                                 });
                             })];
+                    case 1:
+                        _a.sent();
+                        return [2 /*return*/];
+                }
+            });
+        });
+    };
+    RoomComponent.prototype.getCameras = function (camerasIds) {
+        return __awaiter(this, void 0, void 0, function () {
+            return __generator(this, function (_a) {
+                switch (_a.label) {
+                    case 0: return [4 /*yield*/, camerasIds.forEach(function (camera) {
+                        })];
                     case 1:
                         _a.sent();
                         return [2 /*return*/];
@@ -912,6 +1044,7 @@ var RoomComponent = /** @class */ (function () {
                             .subscribe(function (res) {
                             _this.room = res;
                             _this.getObjects(_this.room.objects);
+                            _this.getCameras(_this.room.cameras);
                         }, function (error) {
                             _this.handleError(error, 'Unable to get room');
                         })];
@@ -1479,7 +1612,7 @@ var MaterialModule = /** @class */ (function () {
 var Consts = /** @class */ (function () {
     function Consts() {
     }
-    Consts.BASE_URL = 'http://localhost:3000';
+    Consts.BASE_URL = 'http://10.1.88.167:3000';
     return Consts;
 }());
 
@@ -1607,6 +1740,45 @@ var AuthService = /** @class */ (function () {
 
 /***/ }),
 
+/***/ "./src/app/services/cameras.service.ts":
+/***/ (function(module, __webpack_exports__, __webpack_require__) {
+
+"use strict";
+/* harmony export (binding) */ __webpack_require__.d(__webpack_exports__, "a", function() { return CamerasService; });
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_0__angular_core__ = __webpack_require__("./node_modules/@angular/core/esm5/core.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_1__angular_common_http__ = __webpack_require__("./node_modules/@angular/common/esm5/http.js");
+/* harmony import */ var __WEBPACK_IMPORTED_MODULE_2__models_Consts__ = __webpack_require__("./src/app/models/Consts.ts");
+var __decorate = (this && this.__decorate) || function (decorators, target, key, desc) {
+    var c = arguments.length, r = c < 3 ? target : desc === null ? desc = Object.getOwnPropertyDescriptor(target, key) : desc, d;
+    if (typeof Reflect === "object" && typeof Reflect.decorate === "function") r = Reflect.decorate(decorators, target, key, desc);
+    else for (var i = decorators.length - 1; i >= 0; i--) if (d = decorators[i]) r = (c < 3 ? d(r) : c > 3 ? d(target, key, r) : d(target, key)) || r;
+    return c > 3 && r && Object.defineProperty(target, key, r), r;
+};
+var __metadata = (this && this.__metadata) || function (k, v) {
+    if (typeof Reflect === "object" && typeof Reflect.metadata === "function") return Reflect.metadata(k, v);
+};
+
+
+
+var CamerasService = /** @class */ (function () {
+    function CamerasService(httpClient) {
+        this.httpClient = httpClient;
+    }
+    CamerasService.prototype.getServerByCameraId = function (cameraId) {
+        console.log('get Server by camera Id');
+        this.httpClient.get(__WEBPACK_IMPORTED_MODULE_2__models_Consts__["a" /* Consts */].BASE_URL + '/cameras/' + cameraId);
+    };
+    CamerasService = __decorate([
+        Object(__WEBPACK_IMPORTED_MODULE_0__angular_core__["C" /* Injectable */])(),
+        __metadata("design:paramtypes", [__WEBPACK_IMPORTED_MODULE_1__angular_common_http__["a" /* HttpClient */]])
+    ], CamerasService);
+    return CamerasService;
+}());
+
+
+
+/***/ }),
+
 /***/ "./src/app/services/homes.service.ts":
 /***/ (function(module, __webpack_exports__, __webpack_require__) {
 
@@ -1674,6 +1846,9 @@ var ObjectsService = /** @class */ (function () {
         this.httpClient = httpClient;
         this.BASE_URL = __WEBPACK_IMPORTED_MODULE_1__models_Consts__["a" /* Consts */].BASE_URL + '/api';
     }
+    ObjectsService.prototype.getServerByObjectId = function (objectId) {
+        return this.httpClient.get(__WEBPACK_IMPORTED_MODULE_1__models_Consts__["a" /* Consts */].BASE_URL + '/objects/' + objectId);
+    };
     ObjectsService.prototype.getObjectMesure = function (object) {
         console.log(object.path, object.type);
         return this.httpClient.get(this.BASE_URL + object.path, { responseType: 'text' });
@@ -1716,9 +1891,6 @@ var RoomService = /** @class */ (function () {
     function RoomService(httpClient) {
         this.httpClient = httpClient;
     }
-    RoomService.prototype.getServerByObjectId = function (objectId) {
-        return this.httpClient.get(__WEBPACK_IMPORTED_MODULE_2__models_Consts__["a" /* Consts */].BASE_URL + '/objects/' + objectId);
-    };
     RoomService.prototype.getRoom = function (homeId, roomId) {
         return this.httpClient.get(__WEBPACK_IMPORTED_MODULE_2__models_Consts__["a" /* Consts */].BASE_URL + '/user/' + homeId + '/rooms/' + roomId);
     };
