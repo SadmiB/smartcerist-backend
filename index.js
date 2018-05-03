@@ -37,7 +37,7 @@ app.use((req, res, next) => {
 
 // mongodb connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://sadmi:bouhafs@localhost/scdb');
+mongoose.connect('mongodb://smart:smart@localhost/scdb');
 
 usersRoutes(app);
 homesRoutes(app);
