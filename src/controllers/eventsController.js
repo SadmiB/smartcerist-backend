@@ -1,9 +1,7 @@
 import mongoose from 'mongoose';
 import {EventSchema} from '../models/eventsModel';
-import io from 'socket.io-client';
 
 const _Event = mongoose.model("Event",EventSchema);
-let socket = io('http://localhost:3000');
 
 export const getEvents = async (req,res) => {
     try {
@@ -51,21 +49,13 @@ export const getObjectEvents = async (req,res) => {
 };
 
 export const addEvent = async (req,res) => {
-    console.log(req.body);
-    let newEvent = new _Event(req.body);
-    console.log(newEvent);
-    try {
-        let events = await newEvent.save()
-        let roomId  = newEvent.socketId;
-        console.log("room : ");
-        console.log(roomId);
-        socket.emit('add-room',roomId);
-        res.json(events);
-        
-    } catch (error) {
-        console.log(error)
-        res.send(error);
-    }   
+ let newEvent = new _Event(req.body);
+ try {
+    let events = await newEvent.save()
+    res.json(events);
+} catch (error) {
+    res.send(error);
+}   
 }
 
 export const getEventWithId = async (req, res) => {
@@ -97,5 +87,4 @@ export const deleteEvent = async (req, res) => {
         res.send(error)
     }
 }
-
 

@@ -1,5 +1,4 @@
 import mongoose from 'mongoose'
-import { PermissionSchema } from './permissionsModel';
 
 const Schema = mongoose.Schema
 
@@ -41,7 +40,5 @@ export const UserSchema = new Schema({
     picture:{
         type:String
     },
-    homes: [Schema.Types.ObjectId],
-    rooms: [PermissionSchema],
-    socketRooms:[Schema.Types.ObjectId]
+    homes: [Schema.Types.ObjectId]
 });

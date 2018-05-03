@@ -154,6 +154,4 @@ const iotRoutes = (app) => {
 }
 
 
-
-
 export default iotRoutes;
