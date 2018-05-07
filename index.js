@@ -40,7 +40,7 @@ app.use((req, res, next) => {
 
 // mongodb connection
 mongoose.Promise = global.Promise;
-mongoose.connect('mongodb://localhost/scdb');
+mongoose.connect('mongodb://smart:smart@localhost/scdb');
 
 usersRoutes(app);
 homesRoutes(app);
@@ -102,6 +102,7 @@ function sendAuthError(res) {
 /******* Socket.IO *******************/
 let http = require('http');
 let server = http.Server(app);
+
 let socketIO = require('socket.io');
 let io = socketIO(server);
 io.on('connection', (socket) => {
@@ -122,7 +123,7 @@ io.on('connection', (socket) => {
 ///////////////////////// Streaming //////////////////////////////
 let stream = new Stream({
     name: 'name',
-    streamUrl: 'rtsp://admin:smartBuilding2017@10.0.88.57:554/cam/realmonitor?channel=1&subtype=0',
+    streamUrl: 'rtsp://admin:smartBuilding2017@193.194.91.145:554/cam/realmonitor?channel=1&subtype=0',
     wsPort: 9999
 });
 

@@ -110,16 +110,6 @@ export const getHomeUsers = async (req,res) => {
     }
 }
 
-export const getRoomUsersPermissions = async (req,res) => {
-    try {
-        let home = await Home.findById(req.params.homeId);
-        let room = home.rooms.id(req.params.roomId);
-        let users = room.users;
-        res.json(users);
-    } catch (error) {
-        res.send(error);
-    }
-}
 
 //return the permission of a specific user in a specific room
 export const getRoomUserPermission = async (req,res) => {
@@ -130,7 +120,7 @@ export const getRoomUserPermission = async (req,res) => {
         let rooms = user.rooms;
         console.log(rooms);
         rooms.forEach(room => {
-            if (room.roomId == req.params.roomId)
+            if (room.roomId.toString() == req.params.roomId.toString())
                 userPermission = room.permission;          
         });
         res.json(userPermission);
