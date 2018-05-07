@@ -61,7 +61,7 @@ const usersRoutes = (app) => {
     app.route('/:homeId/:roomId/nonUsers')
     .get(getUsersNonInRoom) 
 
-    app.route('/:homeId/:roomId/users/:userId/permission')
+    app.route('/rooms/:roomId/users/permission/:userId')
     .put(updateUserRoomPermission)
     .get(getRoomUserPermission)
 };
