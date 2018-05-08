@@ -11,17 +11,17 @@ const eventRoutes = (app) => {
     .put(updateEvent)
     .delete(deleteEvent)
 
-    app.route('/homes/:homeId/events')
-    .get(getHomeEvents)
+    // app.route('/homes/:homeId/events')
+    // .get(getHomeEvents)
 
-    app.route('/users/user/events')
-    .get(checkAuthenticated,getUserEvents)
+    // app.route('/users/user/events')
+    // .get(checkAuthenticated,getUserEvents)
     
-    app.route('/rooms/:roomId/events')
-    .get(getRoomEvents)
+    // app.route('/rooms/:roomId/events')
+    // .get(getRoomEvents)
 
-    app.route('/objects/:objectId/events')
-    .get(getObjectEvents)
+    // app.route('/objects/:objectId/events')
+    // .get(getObjectEvents)
 }
 
 export default eventRoutes;
