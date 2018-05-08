@@ -9,8 +9,8 @@ export const EventSchema = new Schema({
         required:"Specify the type of event"
     },
     date:{
-        type: Date,
-        required:"Specify the date"
+        type: String,
+        // required:"Specify the date"
     },
 
     category:{
@@ -20,17 +20,13 @@ export const EventSchema = new Schema({
     message:{
         type: String,
     },
-    home:{
-        type:Schema.Types.ObjectId,
+    socketId:{
+        type: Schema.Types.ObjectId,
+        required:"Specify the socket room of event"
     },
-    user:{
-        type:Schema.Types.ObjectId,
-    },
-    room:{
-        type:Schema.Types.ObjectId,
-    },
-    object:{
-        type:Schema.Types.ObjectId,
+    seen:{
+        type: Boolean,
+        default: false 
     }
     
 });
