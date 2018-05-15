@@ -20,7 +20,7 @@ export const HomeSchema = new Schema({
     country: {
         type: String
     },
-    long:{
+    lon:{
         type: String
     },
     lat:{

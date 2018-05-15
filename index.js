@@ -4,6 +4,7 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import path from 'path';
 import Stream from 'node-rtsp-stream';
+import bcryptjs from 'bcryptjs';
 
 import usersRoutes from './src/routes/usersRoutes';
 import homesRoutes from './src/routes/homesRoutes';
@@ -72,6 +73,9 @@ app.get('/', (req, res) =>
 app.post('/signup', async (req, res) => {
     console.log('signup...');
     let newUser = new User(req.body)
+    const salt = bcryptjs.genSaltSync(10);
+    let hashed_password =  bcryptjs.hashSync(newUser.password, salt);
+    newUser.password = hashed_password;
     newUser.socketRooms.push(newUser._id);
     console.log(newUser);
     let user = await newUser.save();
@@ -88,12 +92,11 @@ app.post('/signin', async (req, res) => {
 
         console.log(req.body.email);
         console.log(req.body.password);
-        //console.log(user.password);
         
         if(!user) {
             sendAuthError(res, "User don't exist!")
             console.log("User don't exist!")
-        }else if (user.password == req.body.password) {
+        }else if (bcryptjs.compareSync(req.body.password, user.password)) {
             sendToken(user, res);
             console.log("sign in successfully!")            
         }
