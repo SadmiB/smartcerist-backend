@@ -61,7 +61,7 @@ export const getHomeServer = async (req, res) => {
 };
 
 // works
-export const updateHomeServer = async (req, res) => {
+export const updateServer = async (req, res) => {
     try {
         let server = await _Server.findByIdAndUpdate(req.params.serverId, req.body, {new: true})
         res.json(server)

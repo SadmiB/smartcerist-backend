@@ -15,7 +15,8 @@ export const CameraSchema = new Schema({
         type: String,
     },
     port:{
-        type: Number
+        type: Number,
+        required: "Specify a port."
     },
     username:{
         type: String,

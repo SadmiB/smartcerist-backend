@@ -4,7 +4,7 @@ import {
     getHomeServers, 
     addHomeServer, 
     getHomeServer, 
-    updateHomeServer, 
+    updateServer, 
     removeHomeServer, } from "../controllers/serversController";
 
 
@@ -15,6 +15,7 @@ const serversRoutes = (app) => {
     
     app.route('/servers/:serverId')
     .get(getServer)
+    .put(updateServer)
 
     app.route('/:homeId/servers')
     .get(getHomeServers)
@@ -22,7 +23,6 @@ const serversRoutes = (app) => {
 
     app.route('/:homeId/servers/:serverId')
     .get(getHomeServer)
-    .put(updateHomeServer)
     .delete(removeHomeServer)
     
 }
