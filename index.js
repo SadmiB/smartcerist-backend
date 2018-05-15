@@ -15,6 +15,7 @@ import serversRoutes from './src/routes/serversRoutes';
 import { UserSchema } from './src/models/usersModel';
 import eventsRoutes from './src/routes/eventsRoutes';
 import iotRoutes from './src/routes/api';
+import camerasRoutes from './src/routes/camerasRoutes';
 import _router from './src/routes/uploadRoutes'
 var appRoutes = require('./src/routes/uploadRoutes');
 
@@ -51,6 +52,7 @@ measuresRoutes(app);
 notificationsRoutes(app);
 objectsRoutes(app);
 eventsRoutes(app);
+camerasRoutes(app);
 iotRoutes(app);
 
 app.use('/', appRoutes);
@@ -76,28 +78,42 @@ app.post('/signup', async (req, res) => {
     sendToken(user, res);
 });
 
+
+
 app.post('/signin', async (req, res) => {
     console.log('signin...');
-    let user = await User.findOne({email: req.body.email});
-    
-    if(!user) 
-        sendAuthError(res);
-        console.log(res)
-    if (user.password == req.body.password)
-        sendToken(user, res);
-    else
-        sendAuthError(res);
-        // console.log(res)
+
+   try {
+        let user = await User.findOne({email: req.body.email});
+
+        console.log(req.body.email);
+        console.log(req.body.password);
+        //console.log(user.password);
+        
+        if(!user) {
+            sendAuthError(res, "User don't exist!")
+            console.log("User don't exist!")
+        }else if (user.password == req.body.password) {
+            sendToken(user, res);
+            console.log("sign in successfully!")            
+        }
+        else {
+            sendAuthError(res, "Wrong password!")
+            console.log("Wrong password!")
+        }
+   } catch (error) {
+       res.send(error)
+   }   
 });
 
 function sendToken(user, res) {
     let token = jwt.sign(user.id, '123'); // in production dont hard code the second argument
-    res.json({firstName: user.firstName, token: token});
+    res.json({email: user.email, token: token});
 }
 
 
-function sendAuthError(res) {
-    return res.json({success: false, message: 'email or password incorrect'});
+function sendAuthError(res, msg) {
+    return res.json({status: 401, message: msg});
 }
 
 /******* Socket.IO *******************/
