@@ -20,7 +20,7 @@ export const HomeSchema = new Schema({
     country: {
         type: String
     },
-    lng:{
+    lon:{
         type: String
     },
     lat:{
@@ -41,4 +41,4 @@ export const HomeSchema = new Schema({
     },
     servers: [Schema.Types.ObjectId],
     rooms: [RoomSchema]
-}); 
+});

@@ -1,9 +1,12 @@
+import mongoose from 'mongoose';
+
 import { HomeSchema } from '../models/homesModel';
 import { ServerSchema } from '../models/serversModel';
 
 const Home = mongoose.model("Home", HomeSchema);
 const _Server = mongoose.model("Server", ServerSchema);
 
+//works
 export const  getRoomCameras = async (req, res) => {
     try {
         let home = await Home.findOneById(req.params.homeId)
@@ -15,9 +18,10 @@ export const  getRoomCameras = async (req, res) => {
     }
 };
 
-export const  addRoomCamera = async (req, res) => {
+//works
+export const addRoomCamera = async (req, res) => {
     try {
-        let home = await Home.findOneById(req.params.homeId)
+        let home = await Home.findById(req.params.homeId)
         let room = await home.rooms.id(req.params.roomId)
         await room.cameras.push(req.params.cameraId)
         await home.save()
@@ -27,10 +31,10 @@ export const  addRoomCamera = async (req, res) => {
     }
 };
 
-
+//works
 export const  getServerCamera = async (req, res) => {
     try {
-        let server = await _Server.findOneById(req.params.serverId)
+        let server = await _Server.findById(req.params.serverId)
         let camera = await server.cameras.id(req.params.cameraId)
         res.json(camera)
     } catch (error) {
@@ -38,7 +42,31 @@ export const  getServerCamera = async (req, res) => {
     }
 };
 
-export const  addServerCamera  = async (req, res) => {
+//works
+export const updateServerCamera = async (req, res) => {
+    try {
+        let server = await _Server.findById(req.params.serverId)
+        let camera = await server.cameras.id(req.params.cameraId)
+        camera.set(req.body)
+        await server.save()
+        res.json(camera)
+    } catch (error) {
+        re.send(error)
+    }
+}
+
+//works
+export const getServerCameras = async (req, res) => {
+    try {
+        let server = await _Server.findById(req.params.serverId)
+        let cameras = server.cameras;
+        res.json(cameras);        
+    } catch (error) {
+        res.send(error);
+    }
+}
+
+export const addServerCamera = async (req, res) => {
     try {
         let server = await _Server.findById(req.params.serverId)
         await server.cameras.push(req.body)
@@ -48,3 +76,14 @@ export const  addServerCamera  = async (req, res) => {
         res.send(error)
     }
 };
+
+export const getServerByCameraId = async (req, res) => {
+    console.log('getServerByCamerasId...')        
+    try {
+        let server = await _Server.findOne({'cameras': {$elemMatch: {_id: req.params.cameraId }}}, {'cameras.$': 1})
+        console.log('getServerByCamerasId: ', server)        
+        res.json(server)
+    } catch (error) {
+        res.send(error)
+    }
+}
