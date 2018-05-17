@@ -73,9 +73,14 @@ export const getUserHome = async (req, res) => {
 
 export const updateUserHome = async (req, res) => {
     try {
+        console.log("i'm hiere")
+        console.log(req.params.homeId);
+        console.log(req.body);
         let home = await Home.findByIdAndUpdate(req.params.homeId, req.body, {new: true})    
+        console.log(home);
         res.json(home)
     } catch (error) {
+        console.log(error)
         res.send(error)
     }
 };

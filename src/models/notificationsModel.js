@@ -16,9 +16,9 @@ export const NotificationSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: "Specify a measure"
     },
-    status: {
-        type: String, // seen or unseen
-        required: "Specify if it is seen or not"        
+    seen:{
+        type: Boolean,
+        default: false 
     },
     category:{
         type: String,

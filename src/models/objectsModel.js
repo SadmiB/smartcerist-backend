@@ -1,6 +1,5 @@
 import mongoose from 'mongoose';
 import { MeasureSchema } from './measuresModel';
-import { NotificationSchema } from './notificationsModel';
 
 const Schema = mongoose.Schema;
 
@@ -23,6 +22,5 @@ export const ObjectSchema = new Schema({
     max_threshold: {
         type: Number
     },
-    measures: [MeasureSchema],
-    notifications: [NotificationSchema]
+    measures: [MeasureSchema]
 });

@@ -15,6 +15,7 @@ const serversRoutes = (app) => {
     
     app.route('/servers/:serverId')
     .get(getServer)
+    .put(updateHomeServer)
 
     app.route('/:homeId/servers')
     .get(getHomeServers)
@@ -22,7 +23,6 @@ const serversRoutes = (app) => {
 
     app.route('/:homeId/servers/:serverId')
     .get(getHomeServer)
-    .put(updateHomeServer)
     .delete(removeHomeServer)
     
 }

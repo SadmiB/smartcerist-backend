@@ -15,17 +15,15 @@ import { getUsers,
          deleteRoomUser,
          getConnectedUserSocketRooms,
          addUserToRoom,
-         changeUserPassword,
-         getUsersNonInRoom} from "../controllers/usersController";
+         getUsersNonInRoom,
+         changeUserAccountPassword,
+         getRoomConnectedUserPermission} from "../controllers/usersController";
 import {checkAuthenticated} from "../controllers/authController";
 
 const usersRoutes = (app) => {
     app.route('/users')
     .get(getUsers)
     .post(addUser)
-
-    app.route('/users/user/password')
-    .put(checkAuthenticated,changeUserPassword) 
         
     app.route('/users/user')
     .get(checkAuthenticated,getConnectedUser)
@@ -64,6 +62,12 @@ const usersRoutes = (app) => {
     app.route('/rooms/:roomId/users/permission/:userId')
     .put(updateUserRoomPermission)
     .get(getRoomUserPermission)
+
+    app.route('/rooms/:roomId/permission/user')
+    .get(checkAuthenticated, getRoomConnectedUserPermission)
+
+    app.route('/changePwd')
+    .put(checkAuthenticated, changeUserAccountPassword)
 };
 
 export default usersRoutes;
