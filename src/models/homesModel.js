@@ -14,7 +14,7 @@ export const HomeSchema = new Schema({
     email: {
         type: String,
     },
-    telephone: {
+    phone: {
         type: String
     },
     country: {
@@ -33,6 +33,12 @@ export const HomeSchema = new Schema({
         type: Schema.Types.ObjectId,
         required: 'Specify an owner'        
     },
+    ipv4: {
+        type: String
+    },
+    ipv6: {
+        type: String
+    },
     servers: [Schema.Types.ObjectId],
     rooms: [RoomSchema]
-}); 
+});

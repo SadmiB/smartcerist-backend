@@ -23,10 +23,5 @@ export const EventSchema = new Schema({
     socketId:{
         type: Schema.Types.ObjectId,
         required:"Specify the socket room of event"
-    },
-    seen:{
-        type: Boolean,
-        default: false 
-    }
-    
+    }    
 });

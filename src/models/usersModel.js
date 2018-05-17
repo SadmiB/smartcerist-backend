@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { NotificationSchema } from './notificationsModel';
 import { PermissionSchema } from './permissionsModel';
 
 const Schema = mongoose.Schema
@@ -43,5 +44,6 @@ export const UserSchema = new Schema({
     },
     homes: [Schema.Types.ObjectId],
     rooms: [PermissionSchema],
-    socketRooms:[Schema.Types.ObjectId]
+    socketRooms:[Schema.Types.ObjectId],
+    notifications: [NotificationSchema]
 });
