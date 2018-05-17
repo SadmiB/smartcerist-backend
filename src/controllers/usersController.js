@@ -114,7 +114,7 @@ export const getHomeUsers = async (req,res) => {
 //return the permission of a specific user in a specific room
 export const getRoomUserPermission = async (req,res) => {
     try {
-        console.log("getRoomUserPermission")
+        console.log("getRoomUserPermission hi hi hi")
         let userPermission;
         let user = await User.findById(req.params.userId);
         let rooms = user.rooms;
@@ -123,6 +123,26 @@ export const getRoomUserPermission = async (req,res) => {
             if (room.roomId.toString() == req.params.roomId.toString())
                 userPermission = room.permission;          
         });
+        res.json(userPermission);
+    } catch (error) {
+        res.send(error);
+    }
+}
+
+//return the permission of the connected user in a specific room
+export const getRoomConnectedUserPermission = async (req,res) => {
+    try {
+        console.log("getRoomConnectedUserPermission")
+        let userPermission;
+        console.log(req.userId);
+        let user = await User.findById(req.userId);
+        let rooms = user.rooms;
+        console.log(rooms);
+        rooms.forEach(room => {
+            if (room.roomId.toString() == req.params.roomId.toString())
+                userPermission = room.permission;          
+        });
+        console.log(userPermission);
         res.json(userPermission);
     } catch (error) {
         res.send(error);
@@ -196,8 +216,7 @@ export const updateUserRoomPermission = async (req,res ) => {
     } catch (e) {
         console.log(e.message);
         res.send(e);
-}
-
+    }
 }
 
 export const getConnectedUserHomesId = async (req,res) => {
@@ -258,17 +277,7 @@ export const addUserToRoom = async (req,res) => {
     }
 }
 
-//change the password of the connected user account
-export const changeUserPassword = async (req,res) => {
-    try {
-    let user = await User.findById(req.userId);
-    user.password = req.body.password;
-    await user.save()
-    res.json(user)
-    } catch (e) {
-        res.send(e)
-    }
-}
+
 
 //get the users that don't have the access to a specific room
 export const getUsersNonInRoom = async (req,res) => {
@@ -279,6 +288,29 @@ export const getUsersNonInRoom = async (req,res) => {
         let users = await User.find({_id: {$nin: room.users}})
         console.log(users)
         res.json(users);
+    } catch (error) {
+        console.log(error)
+        res.send(error)
+    }
+}
+
+//change user account password 
+export const changeUserAccountPassword = async (req, res) => {
+    try {
+        console.log('changePwd...');
+        console.log(req.body);
+        console.log(req.userId);
+        let user = await User.findOne({_id: req.userId});
+        console.log(user.password);
+        if (user.password == req.body.currentPassword){
+            user.password = req.body.password
+            await user.save();
+        }
+        else
+            // sendAuthError(res);
+            console.log(res)
+
+        res.json(user)
     } catch (error) {
         console.log(error)
         res.send(error)

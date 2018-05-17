@@ -42,7 +42,6 @@ app.use((req, res, next) => {
 
 // mongodb connection
 mongoose.Promise = global.Promise;
-
 mongoose.connect('mongodb://smart:smart@localhost/scdb');
 
 usersRoutes(app);
@@ -130,7 +129,7 @@ io.on('connection', (socket) => {
 
     socket.on('new-message', (message) => {
         console.log(message);
-        io.emit('new-message', message);
+        io.broadcast('new-message', message);
     });
 
     socket.on('add-room', (roomId)=>{
