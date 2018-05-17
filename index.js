@@ -72,25 +72,25 @@ app.get('/', (req, res) =>
 app.post('/signup', async (req, res) => {
     console.log('signup...');
     let newUser = new User(req.body)
-    const salt = bcryptjs.genSaltSync(10);
-    let hashed_password =  bcryptjs.hashSync(newUser.password, salt);
-    newUser.password = hashed_password;
-    newUser.socketRooms.push(newUser._id);
-    console.log(newUser);
-    let user = await newUser.save();
-    sendToken(user, res);
+    const salt = bcryptjs.genSaltSync(10)
+    let hashed_password =  bcryptjs.hashSync(newUser.password, salt)
+    newUser.password = hashed_password
+    newUser.socketRooms.push(newUser._id)
+    console.log(newUser)
+    let user = await newUser.save()
+    sendToken(user, res)
 });
 
 
 
 app.post('/signin', async (req, res) => {
-    console.log('signin...');
+    console.log('signin...')
 
    try {
-        let user = await User.findOne({email: req.body.email});
+        let user = await User.findOne({email: req.body.email})
 
-        console.log(req.body.email);
-        console.log(req.body.password);
+        console.log(req.body.email)
+        console.log(req.body.password)
         
         if(!user) {
             sendAuthError(res, "User don't exist!")
@@ -128,13 +128,13 @@ io.on('connection', (socket) => {
     console.log('user connected');
 
     socket.on('new-message', (message) => {
-        console.log(message);
-        io.broadcast('new-message', message);
+        console.log(message)
+        io.broadcast('new-message', message)
     });
 
     socket.on('add-room', (roomId)=>{
         console.log("add-room event : " + roomId)
-        io.emit('add-room', "a new add notification");
+        io.emit('add-room', "a new add notification")
         console.log("event sent")
     });
 });

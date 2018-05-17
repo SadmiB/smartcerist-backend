@@ -1,4 +1,6 @@
 import mongoose from "mongoose";
+import bcryptjs from 'bcryptjs';
+
 import { UserSchema } from "../models/usersModel";
 import { HomeSchema } from "../models/homesModel";
 const User = mongoose.model('User', UserSchema)
@@ -297,22 +299,29 @@ export const getUsersNonInRoom = async (req,res) => {
 //change user account password 
 export const changeUserAccountPassword = async (req, res) => {
     try {
-        console.log('changePwd...');
-        console.log(req.body);
-        console.log(req.userId);
-        let user = await User.findOne({_id: req.userId});
-        console.log(user.password);
-        if (user.password == req.body.currentPassword){
-            user.password = req.body.password
-            await user.save();
+        console.log('changePwd...')
+        console.log(req.body)
+        console.log(req.userId)
+        let user = await User.findOne({_id: req.userId})
+        console.log(user.password)
+        if (bcryptjs.compareSync(user.password, req.body.currentPassword)) {
+            const salt = bcryptjs.genSaltSync(10)
+            let hashed_password =  bcryptjs.hashSync(req.body.password, salt)
+            user.password = hashed_password
+            await user.save()
+            res.json(user)
         }
-        else
-            // sendAuthError(res);
+        else{
+            sendAuthError(res, "Passwords doesn't match");
             console.log(res)
-
-        res.json(user)
+        }        
     } catch (error) {
         console.log(error)
         res.send(error)
     }
+}
+
+
+function sendAuthError(res, msg) {
+    return res.json({status: 401, message: msg});
 }
