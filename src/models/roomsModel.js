@@ -1,6 +1,8 @@
 import mongoose from 'mongoose'
+import { UserSchema } from "./usersModel";
 
 const Schema = mongoose.Schema
+const User = mongoose.model("User", UserSchema)
 
 export const RoomSchema = new Schema({
     name: {
@@ -10,8 +12,8 @@ export const RoomSchema = new Schema({
     type: {
         type: String
     },
-    objects : [Schema.Types.ObjectId],
-    users: [Schema.Types.ObjectId],
+    objects : [ {type: Schema.Types.ObjectId, ref: 'objects' }],
+    users: [{type: Schema.Types.ObjectId, ref:'User'}],
     cameras : [Schema.Types.ObjectId]
 });
 
