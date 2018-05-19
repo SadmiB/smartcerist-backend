@@ -172,11 +172,11 @@ const iotRoutes = (app) => {
   app.route('/api/lights/temperature')
   .get( (req, res) => {
     var coapConnection = {
-      host: '2001:4340:1010:22:02a0:44ff:fe66:6b6e',
+      host: '2001:4340:1010:22:02f5:b6ff:fed2:8e61',
       pathname: '/lights/temperature',
       method: 'GET',
       confirmable: true
-    }    
+    }
     try {
       console.log('GET temperature...');  
       const requ = coap.request(coapConnection);
