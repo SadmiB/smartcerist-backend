@@ -18,7 +18,7 @@ import {
     getConnectedUserRooms,
     getConnectedUserRoomsIds,
     getConnectedUserSocketRooms,
-    getRoomObjects
+    // getRoomObjects
 } from '../controllers/homesController'
 
 import { checkAuthenticated } from '../controllers/authController'
@@ -66,9 +66,8 @@ const homesRoutes = (app) => {
     .put(updateRoom)
     .delete(deleteRoom)
 
-    //
-    app.route('/:homeId/:roomId/objects')
-    .get(getRoomObjects)
+    // app.route('/:homeId/:roomId/objects')
+    // .get(getRoomObjects)
 
     app.route('/:homeId/rooms/:roomId/objects/:objectId')  
     .post(addRoomObject)
