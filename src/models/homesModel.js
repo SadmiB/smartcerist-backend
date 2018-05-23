@@ -40,5 +40,9 @@ export const HomeSchema = new Schema({
         type: String
     },
     servers: [Schema.Types.ObjectId],
-    rooms: [RoomSchema]
+    rooms: [RoomSchema],
+    permission: {
+        type: String,
+        default: 'owner'
+    }
 });

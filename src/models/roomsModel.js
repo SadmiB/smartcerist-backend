@@ -1,4 +1,5 @@
 import mongoose from 'mongoose'
+import { EventSchema } from "./eventsModel";
 
 const Schema = mongoose.Schema
 
@@ -12,6 +13,7 @@ export const RoomSchema = new Schema({
     },
     objects : [Schema.Types.ObjectId],
     users: [Schema.Types.ObjectId],
-    cameras : [Schema.Types.ObjectId]
+    cameras: [Schema.Types.ObjectId],
+    events: [EventSchema]
 });
 

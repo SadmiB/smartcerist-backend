@@ -127,15 +127,37 @@ let io = socketIO(server);
 io.on('connection', (socket) => {
     console.log('user connected');
 
-    socket.on('new-message', (message) => {
-        console.log(message);
-        io.broadcast('new-message', message);
+    socket.on('room', (data) => {
+        console.log("room: " + data.room);
+        console.log("msg: " + data.message);
+        socket.join(data.room);
+        console.log('join the room');        
+        io.to('room').emit('some event');
     });
 
-    socket.on('add-room', (roomId)=>{
-        console.log("add-room event : " + roomId)
-        io.emit('add-room', "a new add notification");
-        console.log("event sent")
+    socket.on('object-threshold', (message)=>{
+        socket.broadcast.emit('object-threshold', "a new add notification");
+    });
+    socket.on('controle-rule', (message)=>{
+        socket.broadcast.emit('controle-rule', "a new add notification");
+    });
+    socket.on('edit-room', (message)=>{
+        socket.broadcast.emit('edit-room', "a new add notification");
+    });
+    socket.on('remove-room', (message)=>{
+        socket.broadcast.emit('remove-room', "remove room notification");
+    });
+    socket.on('add-user-room', (message)=>{
+        io.emit('add-user-room', "a new add notification");
+    });
+    socket.on('delet-user-room', (message)=>{
+        io.emit('delet-user-room', "a new add notification");
+    });
+    socket.on('edit-user-permission', (message)=>{
+        io.emit('edit-user-permission', "a new add notification");
+    });
+    socket.on('add-object-room', (message)=>{
+        io.emit('add-object-room', "a new add notification");
     });
 });
 

@@ -51,17 +51,17 @@ const usersRoutes = (app) => {
     .get(getRoomUsers)
 
     app.route('/:homeId/:roomId/users/:userId')
-    .delete(deleteRoomUser)
+    .delete(checkAuthenticated, deleteRoomUser)
 
     app.route('/rooms/room/users/:userId') 
-    .put(addUserToRoom)
+    .put(checkAuthenticated, addUserToRoom)
 
     app.route('/:homeId/:roomId/nonUsers')
     .get(getUsersNonInRoom) 
 
     app.route('/rooms/:roomId/users/permission/:userId')
-    .put(updateUserRoomPermission)
-    .get(getRoomUserPermission)
+    .put(checkAuthenticated, updateUserRoomPermission)
+    .get(checkAuthenticated, getRoomUserPermission)
 
     app.route('/rooms/:roomId/permission/user')
     .get(checkAuthenticated, getRoomConnectedUserPermission)
