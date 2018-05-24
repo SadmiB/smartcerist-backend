@@ -1,7 +1,13 @@
 import mongoose  from "mongoose";
 import { RoomSchema } from "./roomsModel";
+import { UserSchema } from "./usersModel";
+import { ServerSchema } from "./serversModel";
 
 const Schema = mongoose.Schema
+
+const User = mongoose.model("User", UserSchema)
+const Server = mongoose.model("Server", ServerSchema)
+
 
 export const HomeSchema = new Schema({
     name: {
@@ -31,7 +37,8 @@ export const HomeSchema = new Schema({
     },
     owner: {
         type: Schema.Types.ObjectId,
-        required: 'Specify an owner'        
+        required: 'Specify an owner',
+        ref: 'User'
     },
     ipv4: {
         type: String

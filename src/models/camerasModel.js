@@ -26,11 +26,11 @@ export const CameraSchema = new Schema({
         type: String,
         required: "Specify a password."
     },
-    main_stream: {
+    mainStream: {
         type: String,
         required: "Specify a main stream url."        
     },
-    sub_stream: {
+    subStream: {
         type: String,
         required: "Specify a sub stream url."        
     },

@@ -38,9 +38,7 @@ const iotRoutes = (app) => {
     try {
         console.log('GET core...');  
         const requ = coap.request(coapConnection);
-        setTimeout(() => {
-          console.log('This will still run.');
-        }, 10000);
+        
         requ.on('response', function(resp) {
           resp.pipe(process.stdout);          
           var textResp = resp.payload;
@@ -66,9 +64,7 @@ const iotRoutes = (app) => {
     try {
         console.log('GET led3...');  
         const requ = coap.request(coapConnection);
-        setTimeout(() => {
-          console.log('This will still run.');
-        }, 10000);
+        
         requ.on('response', function(resp) {
           resp.pipe(process.stdout);          
           var textResp = resp.payload.toString('utf8');
@@ -97,9 +93,7 @@ const iotRoutes = (app) => {
       console.log('PUT led3...');
       var requ = coap.request(coapConnection);
       //var payload = url.parse(req.url, true).query.payload;
-      setTimeout(() => {
-        console.log('This will still run.');
-      }, 10000);
+     
       console.log("payload=" + req.body.payload);
       requ.write(new Buffer(req.body.payload));
       requ.on('response', function(resp) {
@@ -127,9 +121,7 @@ const iotRoutes = (app) => {
     try {
       console.log('GET ligth...');  
       const requ = coap.request(coapConnection);
-      setTimeout(() => {
-        console.log('This will still run.');
-      }, 10000);
+     
       requ.on('response', function(resp) {
         resp.pipe(process.stdout);
           var textResp = resp.payload.toString('utf8');
@@ -153,9 +145,7 @@ const iotRoutes = (app) => {
     try {
       console.log('GET presence...');  
       const requ = coap.request(coapConnection);
-      setTimeout(() => {
-        console.log('This will still run.');
-      }, 10000);
+     
       requ.on('response', function(resp) {
         resp.pipe(process.stdout);
         var textResp = resp.payload.toString('utf8');
@@ -172,17 +162,15 @@ const iotRoutes = (app) => {
   app.route('/api/lights/temperature')
   .get( (req, res) => {
     var coapConnection = {
-      host: '2001:4340:1010:22:02a0:44ff:fe66:6b6e',
+      host: '2001:4340:1010:22:02f5:b6ff:fed2:8e61',
       pathname: '/lights/temperature',
       method: 'GET',
       confirmable: true
-    }    
+    }
     try {
       console.log('GET temperature...');  
       const requ = coap.request(coapConnection);
-      setTimeout(() => {
-        console.log('This will still run.');
-      }, 10000);
+     
       requ.on('response', function(resp) {
         resp.pipe(process.stdout);
         var textResp = resp.payload.toString('utf8');
@@ -205,9 +193,7 @@ const iotRoutes = (app) => {
     try {
       console.log('GET power...');  
       const requ = coap.request(coapConnection);
-      setTimeout(() => {
-        console.log('This will still run.');
-      }, 10000);
+     
       requ.on('response', function(resp) {
         resp.pipe(process.stdout);
         var textResp = resp.payload.toString('utf8');
@@ -218,8 +204,6 @@ const iotRoutes = (app) => {
       console.log(error);
     }
   });
-
-
 }
 
 export default iotRoutes;
