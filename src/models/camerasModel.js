@@ -16,23 +16,23 @@ export const CameraSchema = new Schema({
     },
     port:{
         type: Number,
-        required: "Specify a port."
+        //required: "Specify a port."
     },
     username:{
         type: String,
-        required: "Specify a username."
+        //required: "Specify a username."
     },
     password: {
         type: String,
-        required: "Specify a password."
+        //required: "Specify a password."
     },
     mainStream: {
         type: String,
-        required: "Specify a main stream url."        
+        //required: "Specify a main stream url."
     },
     subStream: {
         type: String,
-        required: "Specify a sub stream url."        
+        //required: "Specify a sub stream url."
     },
     ddns: {
         type: String

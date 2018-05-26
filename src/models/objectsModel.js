@@ -10,11 +10,11 @@ export const ObjectSchema = new Schema({
     },
     path: {
         type: String,
-        required : "Specify a path"
+        // required : "Specify a path"
     },
     type: {
         type: String,
-        required: "Enter object's type"
+        // required: "Enter object's type"
     },
     min_threshold: {
         type: Number

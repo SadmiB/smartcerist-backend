@@ -258,11 +258,11 @@ export const deleteRoom = async (req, res) => {
 export const addRoomObject = async (req, res) => {
     console.log('add object to room...')
     try {
-        let home = await Home.findById(req.params.homeId)
-        let room = await home.rooms.id(req.params.roomId)
-        await room.objects.push(req.params.objectId)
-        await home.save()
-        res.json(home)
+        let home = await Home.findById(req.params.homeId);
+        let room = await home.rooms.id(req.params.roomId);
+        await room.objects.push(req.params.objectId);
+        await home.save();
+        res.json(home.rooms.id(req.params.roomId));
     } catch (error) {
         res.send(error)
     }

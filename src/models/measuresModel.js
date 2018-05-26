@@ -6,10 +6,10 @@ const Schema = mongoose.Schema;
 export const MeasureSchema = new Schema({
     value: {
         type: String,
-        required: 'Enter a value'
+        // required: 'Enter a value'
     },
     date: {
         type: Date,
-        required: "Specify a date and time"                
+        // required: "Specify a date and time"                
     }
 });

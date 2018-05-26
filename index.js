@@ -4,7 +4,7 @@ import mongoose from 'mongoose';
 import jwt from 'jsonwebtoken';
 import path from 'path';
 import Stream from 'node-rtsp-stream';
-import bcryptjs from 'bcryptjs';
+
 
 import usersRoutes from './src/routes/usersRoutes';
 import homesRoutes from './src/routes/homesRoutes';
@@ -18,6 +18,7 @@ import eventsRoutes from './src/routes/eventsRoutes';
 import iotRoutes from './src/routes/api';
 import camerasRoutes from './src/routes/camerasRoutes';
 import _router from './src/routes/uploadRoutes'
+import authRoutes from './src/routes/authRoutes';
 var appRoutes = require('./src/routes/uploadRoutes');
 
 
@@ -35,6 +36,13 @@ if (cluster.isMaster) {
     cluster.fork();
   });
 
+   ///////////////////////// Streaming //////////////////////////////
+   let stream = new Stream({
+        name: 'name',
+        streamUrl: 'rtsp://admin:smartBuilding2017@192.168.8.102:554/cam/realmonitor?channel=1&subtype=0',
+        wsPort: 9999
+    });
+
 } else {
     const domain = require('domain');
    
@@ -47,13 +55,13 @@ if (cluster.isMaster) {
         }, 30000);
         killtimer.unref();
 
-        server.close();
+        // server.close();
 
         cluster.worker.disconnect();
 
-        res.statusCode = 500;
-        res.setHeader('content-type', 'text/plain');
-        res.end('Oops, there was a problem!\n');
+        // res.statusCode = 500;
+        // res.setHeader('content-type', 'text/plain');
+        // res.end('Oops, there was a problem!\n');
       } catch (er2) {
         console.error(`Error sending 500! ${er2.stack}`);
       }
@@ -65,8 +73,6 @@ if (cluster.isMaster) {
         // your code here
         let app = express();
         const User = mongoose.model('User', UserSchema)
-
-
 
         // json parsing
         app.use(bodyParser.json());
@@ -82,7 +88,6 @@ if (cluster.isMaster) {
             next();
         });
 
-
         // mongodb connection
         mongoose.Promise = global.Promise;
         mongoose.connect('mongodb://smart:smart@localhost/scdb');
@@ -97,6 +102,7 @@ if (cluster.isMaster) {
         eventsRoutes(app);
         camerasRoutes(app);
         iotRoutes(app);
+        authRoutes(app);
 
         app.use('/', appRoutes);
 
@@ -110,57 +116,6 @@ if (cluster.isMaster) {
         app.get('/', (req, res) => 
             res.send(`server is running in port: ${PORT}`)
         );
-
-
-        app.post('/signup', async (req, res) => {
-            console.log('signup...');
-            let newUser = new User(req.body)
-            const salt = bcryptjs.genSaltSync(10)
-            console.log(salt);
-            let hashed_password =  bcryptjs.hashSync(newUser.password, salt)
-            newUser.password = hashed_password
-            newUser.socketRooms.push(newUser._id)
-            console.log(newUser)
-            let user = await newUser.save()
-            sendToken(user, res)
-        });
-
-
-
-        app.post('/signin', async (req, res) => {
-            console.log('signin...')
-
-        try {
-                let user = await User.findOne({email: req.body.email})
-
-                console.log(req.body.email)
-                console.log(req.body.password)
-                
-                if(!user) {
-                    sendAuthError(res, "User don't exist!")
-                    console.log("User don't exist!")
-                }else if (bcryptjs.compareSync(req.body.password, user.password)) {
-                    sendToken(user, res);
-                    console.log("sign in successfully!")            
-                }
-                else {
-                    sendAuthError(res, "Wrong password!")
-                    console.log("Wrong password!")
-                }
-        } catch (error) {
-            res.send(error)
-        }   
-        });
-
-        function sendToken(user, res) {
-            let token = jwt.sign(user.id, '123'); // in production dont hard code the second argument
-            res.json({email: user.email, token: token});
-        }
-
-
-        function sendAuthError(res, msg) {
-            return res.json({status: 401, message: msg});
-        }
 
         /******* Socket.IO *******************/
         let http = require('http');
@@ -181,13 +136,6 @@ if (cluster.isMaster) {
                 io.emit('add-room', "a new add notification")
                 console.log("event sent")
             });
-        });
-
-        ///////////////////////// Streaming //////////////////////////////
-        let stream = new Stream({
-            name: 'name',
-            streamUrl: 'rtsp://admin:smartBuilding2017@192.168.8.102:554/cam/realmonitor?channel=1&subtype=0',
-            wsPort: 9999
         });
 
         server.listen(PORT, () =>
