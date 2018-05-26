@@ -21,6 +21,7 @@ export const signUp = async (req, res) => {
     console.log('signup...');
     let newUser = new User(req.body)
     const salt = bcryptjs.genSaltSync(10)
+    console.log(salt);
     let hashed_password =  bcryptjs.hashSync(newUser.password, salt)
     newUser.password = hashed_password
     newUser.socketRooms.push(newUser._id)

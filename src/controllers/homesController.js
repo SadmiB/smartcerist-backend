@@ -35,6 +35,13 @@ export const getUserHomes = async (req, res) => {
         let user = await User.findById(req.userId)
         let homesIds = await user.homes
         let homes = await Home.find({_id: {$in: homesIds}})
+        homes.forEach(home => {
+            if(home.owner.toString() == req.userId.toString()){
+                home.permission = "owner"
+            }else{
+                home.permission="user"
+            }            
+        });
         res.json(homes)
     } catch (error) {
         res.send(error) 
@@ -43,6 +50,7 @@ export const getUserHomes = async (req, res) => {
 
 export const getOwnerHomes = async(req,res)=>{
     try {
+        console.log('---------------- getOwnerHomes -------------------------------')
         let homes = await Home.find({owner:req.userId})
         res.json(homes)
     } catch (e) {
@@ -88,19 +96,38 @@ export const updateUserHome = async (req, res) => {
 //delete a home and all related
 export const deleteUserHome = async (req, res) => {
     try {
-        let home = await Home.remove({_id: req.params.homeId})
-        let users = await User.find({homes:{$in : [req.params.homeId]}});
-        users.forEach(user => {
+        let home = await Home.findOne({_id: req.params.homeId})
+        if(home.owner.toString() === req.userId.toString()){
+            home = await Home.remove({_id: req.params.homeId})
+            let users = await User.find({homes:{$in : [req.params.homeId]}});
+            users.forEach(user => {
+                user.homes.pull(req.params.homeId);
+                user.socketRooms.pull(req.params.homeId);
+                let userRooms = user.rooms;
+                userRooms.forEach(room => {
+                    if(room.homeId.toString() == req.params.homeId.toString()){
+                        user.rooms.pull(room._id);
+                        user.socketRooms.pull(room._id);
+                    }                
+                });
+                user.save();
+            });
+        }else{
+            let user = await User.findOne({_id: req.userId});
             user.homes.pull(req.params.homeId);
             user.socketRooms.pull(req.params.homeId);
             let userRooms = user.rooms;
             userRooms.forEach(room => {
                 if(room.homeId.toString() == req.params.homeId.toString()){
                     user.rooms.pull(room._id);
+                    user.socketRooms.pull(room._id);
+                    room = home.rooms.id(room.roomId);
+                    room.users.pull(req.userId);
                 }                
             });
             user.save();
-        });
+        }
+        home.save();        
         res.json(home)
     } catch (error) {
         res.send(error)
@@ -163,12 +190,50 @@ export const updateRoom = async (req, res) => {
 
 
 export const deleteRoom = async (req, res) => {
-    console.log('delete room...')
     try {
-        let home = await Home.findById(req.params.homeId)
-        let room = await home.rooms.pull(req.params.roomId)
-        await home.save()        
-        res.json(room)
+        console.log('------------- deleteRoom -------------')
+        let userPermission;
+        let user = await User.findById(req.userId);
+        console.log('------------- user -------------')
+        console.log(user)
+        user.rooms.forEach(room => {
+            if (room.roomId.toString() == req.params.roomId.toString())
+                userPermission = room.permission;          
+        });
+        console.log('------------- userPermission -------------')
+        console.log(userPermission)
+        let home = await Home.findById(req.params.homeId);
+        console.log('------------- home -------------')
+        console.log(home)
+        if (userPermission.toString() == 'owner') {
+            let room = await home.rooms.id(req.params.roomId)
+            for (let element of room.users) {
+                let elementUser = await User.findOne({_id: element});
+                console.log('------------- user -------------');
+                console.log(elementUser);
+                console.log(req.params.roomId);
+                console.log(req.params.homeId);
+                deleteRoomInUserFct(req.params.homeId, req.params.roomId, elementUser)
+                // deleteUserInRoomFct(home, req.params.roomId, element);
+                console.log('------------- user -------------  ' + elementUser.firstName)
+                console.log(elementUser.homes)
+                console.log(elementUser.rooms)
+                console.log(elementUser.socketRooms)
+                await elementUser.save();
+            };
+            await home.rooms.pull(req.params.roomId)
+            console.log('---------- home.rooms --------------');
+            console.log(home.rooms);
+        }else{
+            deleteRoomInUserFct(req.params.homeId, req.params.roomId, user);
+            await user.save();
+            deleteUserInRoomFct(home, req.params.roomId, req.userId);
+        }
+        
+        await home.save()
+        console.log('------------- home -------------')
+        console.log(home)        
+        res.json(home)
     } catch (error) {
         res.send(error)
     }
@@ -241,20 +306,18 @@ export const getUserRooms = async (req,res) => {
 
 export const getConnectedUserRooms = async (req,res) => {
     try {
+        console.log('------------------ getConnectedUserRooms ---------------------');
         let userRooms = new Set() ;
         let home = await Home.findOne({_id: req.params.homeId});
         let rooms = home.rooms;
         rooms.forEach(room => {
             let users = room.users;
-            console.log(users);
             users.forEach(user => {
                 if (user == req.userId)
                     if(!userRooms.has(room))
                         userRooms.add(room);
-                        console.log(userRooms);
             });            
         });
-        console.log(userRooms); 
         res.json(userRooms)
     } catch (e) {
         res.send(e)    
@@ -263,24 +326,19 @@ export const getConnectedUserRooms = async (req,res) => {
 
 export const getConnectedUserRoomsIds = async (req,res) => {
     try {
+        console.log('------------------ getConnectedUserRoomsIds ---------------------');
         let userRoomsIds = new Set() ;
         let home = await Home.findOne({_id: req.params.homeId});
         let rooms = home.rooms;
         rooms.forEach(room => {
             let users = room.users;
-            console.log(users);
             users.forEach(user => {
-                console.log(user.userId);
-                console.log(req.userId);
                 if (user.userId.toString() == req.userId.toString())
                 {
-                    console.log("true")
                     userRoomsIds.add(room._id);
-                    console.log(userRoomsIds);
                 }
             });            
         });
-        console.log(userRoomsIds); 
         res.json(userRoomsIds)
     } catch (e) {
         res.send(e)    
@@ -289,6 +347,7 @@ export const getConnectedUserRoomsIds = async (req,res) => {
 
 export const getConnectedUserSocketRooms = async (req,res) => {
     try {
+        console.log('------------------ getConnectedUserSocketRooms ---------------------');
         let userId = req.params.userId;
         let socketRooms = [""];
         let user = await User.findById(userId);
@@ -296,26 +355,17 @@ export const getConnectedUserSocketRooms = async (req,res) => {
         socketRooms=homesId;
         homesId.forEach(homeId => {
             Home.findOne({_id: homeId}, function(err, home) {
-                // docs contains your answer
-                console.log("***********************************")
                 let rooms = home.rooms;
                 rooms.forEach(room => {
                     let users = room.users;
-                    // console.log(users);
                     users.forEach(user => {
-                        // console.log(user.userId);
-                        // console.log(userId);
-                        // console.log(room._id);
                         if (user.userId == userId){
-                            console.log("true");
                             socketRooms.push(room._id.toString());
-                            console.log(socketRooms)
                         }
                     });            
                 });
             });
         });
-        // console.log(socketRooms)
         res.json(socketRooms)       
     } catch (e) {
         res.send(e)
@@ -323,3 +373,36 @@ export const getConnectedUserSocketRooms = async (req,res) => {
 }
 
 
+function deleteRoomInUserFct(homeId, reqRoomId, user){
+    console.log("-------------------------- deleteRoomInUserFct ----------------------------")
+    console.log(user);
+    console.log('---------------- reqRoomId -------------------------');
+    console.log(reqRoomId);
+    user.socketRooms.pull(reqRoomId)
+    console.log('---------------- user -------------------------');
+    console.log(user);
+    let homeNumber = 0;
+    let roomId;
+    console.log('---------------- homeNumber -------------------------');
+    console.log(homeNumber);
+    user.rooms.forEach(room => {
+        if(room.roomId.toString() == reqRoomId.toString())
+            roomId = room._id  ;
+        if(room.homeId.toString()== homeId.toString())
+            homeNumber ++;
+    });
+    if (homeNumber < 2) {
+        user.homes.pull(homeId)
+        user.socketRooms.pull(homeId)
+    }
+    user.rooms.pull(roomId);
+    console.log(user);
+    //user.save();
+}
+
+function deleteUserInRoomFct(home, roomId, userId){
+        let room =  home.rooms.id(roomId);
+        console.log(room);
+        room.users.pull(userId);
+        console.log(room);
+}

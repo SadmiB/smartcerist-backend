@@ -40,13 +40,13 @@ const homesRoutes = (app) => {
     .get(checkAuthenticated, getUserHomes)
     .post(checkAuthenticated, addUserHome)
 
-    app.route('/:owner/homes')
+    app.route('/owner/homes')
     .get(checkAuthenticated,getOwnerHomes)
 
     app.route('/user/homes/:homeId')
     .get(getUserHome)
     .put(updateUserHome)
-    .delete(deleteUserHome)
+    .delete(checkAuthenticated, deleteUserHome)
 
     app.route('/:userId/homes/:homeId/rooms')
     .get(getUserRooms)
@@ -64,7 +64,7 @@ const homesRoutes = (app) => {
     app.route('/user/:homeId/rooms/:roomId')
     .get(getRoom)
     .put(updateRoom)
-    .delete(deleteRoom)
+    .delete(checkAuthenticated, deleteRoom)
 
     // app.route('/:homeId/:roomId/objects')
     // .get(getRoomObjects)

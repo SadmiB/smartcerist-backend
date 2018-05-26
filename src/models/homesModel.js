@@ -46,6 +46,10 @@ export const HomeSchema = new Schema({
     ipv6: {
         type: String
     },
-    servers: [{type: Schema.Types.ObjectId, ref:'Server'}],
-    rooms: [RoomSchema]
+    servers: [Schema.Types.ObjectId],
+    rooms: [RoomSchema],
+    permission: {
+        type: String,
+        default: 'owner'
+    }
 });

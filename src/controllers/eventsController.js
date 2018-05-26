@@ -7,16 +7,8 @@ let socket = io('http://localhost:3000');
 
 export const getEvents = async (req,res) => {
     try {
+        console.log("---------------- get Events -----------");
         let events = await _Event.find();
-        res.json(events);
-    } catch (error) {
-        res.send(error);
-    }
-};
-
-export const getHomeEvents = async (req,res) => {
-    try {
-        let events = await _Event.find({home:req.params.homeId});
         res.json(events);
     } catch (error) {
         res.send(error);

@@ -3,8 +3,12 @@ import bcryptjs from 'bcryptjs';
 
 import { UserSchema } from "../models/usersModel";
 import { HomeSchema } from "../models/homesModel";
-const User = mongoose.model('User', UserSchema)
-const Home = mongoose.model('Home', HomeSchema)
+import { EventSchema } from "../models/eventsModel";
+import { NotificationSchema, DELETE_USER_ROOM, ADD_USER_ROOM, EDIT_USER_PERMISSIONS  } from "../models/notificationsModel";
+const User = mongoose.model('User', UserSchema);
+const Home = mongoose.model('Home', HomeSchema);
+const _Event = mongoose.model('Event', EventSchema);
+const Notification = mongoose.model('Notification', NotificationSchema);
 
 export const getUsers = async (req, res) => {
     let users = await User.find({})
@@ -31,7 +35,9 @@ export const addUser = async (req, res) =>{
 
 export const getConnectedUser = async (req, res) => {
     try{
+        console.log("-------- getConnectedUser -------------")
         let user = await User.findById(req.userId)
+        console.log(user);
         res.json(user)
     } catch(error){
         console.log("rien n'est trouvé");
@@ -47,7 +53,6 @@ export const updateConnectedUser = async (req, res) => {
         res.send(error)
     }
 };
-
 
 export const deleteConnectedUser = async (req, res) => {
     try {
@@ -78,7 +83,6 @@ export const updateUser = async (req, res) => {
         res.send(error)
     }
 };
-
 
 export const deleteUser = async (req, res) => {
     try {
@@ -112,11 +116,10 @@ export const getHomeUsers = async (req,res) => {
     }
 }
 
-
 //return the permission of a specific user in a specific room
 export const getRoomUserPermission = async (req,res) => {
     try {
-        console.log("getRoomUserPermission hi hi hi")
+        console.log("-------------- getRoomUserPermission -----------------")
         let userPermission;
         let user = await User.findById(req.params.userId);
         let rooms = user.rooms;
@@ -134,7 +137,7 @@ export const getRoomUserPermission = async (req,res) => {
 //return the permission of the connected user in a specific room
 export const getRoomConnectedUserPermission = async (req,res) => {
     try {
-        console.log("getRoomConnectedUserPermission")
+        console.log("--------------- getRoomConnectedUserPermission -------------------")
         let userPermission;
         console.log(req.userId);
         let user = await User.findById(req.userId);
@@ -154,29 +157,13 @@ export const getRoomConnectedUserPermission = async (req,res) => {
 //remove a user from a room
 export const deleteRoomUser = async (req,res) =>{
     try {
-        let roomId;
         let user = await User.findById(req.params.userId);
-        user.socketRooms.pull(req.params.roomId)
-        let homeNumber = 0;
-        user.rooms.forEach(room => {
-            if(room.roomId.toString() == req.params.roomId.toString())
-                roomId = room._id  ;
-            if(room.homeId.toString()== req.params.homeId.toString())
-                homeNumber ++;                          
-        });
-        if (homeNumber < 2) {
-            user.homes.pull(req.params.homeId)
-            user.socketRooms.pull(req.params.homeId)
-        }
-        user.rooms.pull(roomId)
-        await user.save() 
-        
+        let userEvent = await User.findById(req.userId);
         let home = await Home.findById(req.params.homeId);
-        let room=  home.rooms.id(req.params.roomId);
-        room.users.pull(req.params.userId);
+        deleteRoomInUserFct(home, req.params.roomId, user, userEvent);
+        deleteUserInRoomFct(home, req.params.roomId, req.params.userId);
+        await user.save();
         await home.save();
-
-        
         res.json(user)
     } catch (e) {
         res.send(e)
@@ -201,18 +188,30 @@ export const getRoomUsers = async (req,res) => {
     }
 }
 
-
 // update the user permission in a specific room
 export const updateUserRoomPermission = async (req,res ) => {
     try {
         let user = await User.findById(req.params.userId);
         let rooms = user.rooms;
+        let homeId;
         console.log(rooms);
         rooms.forEach(room => {
             console.log(room);
-            if(room.roomId == req.params.roomId)
+            if(room.roomId == req.params.roomId){
                 room.permission = req.body.permission;
+                homeId = room.homeId;
+            }
         });
+        let home = await Home.findOne({_id: homeId});
+        let userRoom = home.rooms.id(req.params.roomId);
+        let notification = new Notification()
+        initNotification(notification, homeId, req.params.roomId, req.params.userId, '','', '', 'you permission are set to "' + req.body.permission + '" in room "' + userRoom.name + '" in home "' + home.name + '"', 'Change your permissions in ' + userRoom.name, EDIT_USER_PERMISSIONS, 'info');
+        user.notifications.push(notification);
+        let _event = new _Event();
+        let userEvent = await User.findById(req.userId);
+        initEvent(_event, home._id, userRoom._id, req.userId, userEvent.firstName + ' ' + userEvent.lastName, '', '', '','You edited "' + user.firstName + ' ' + user.lastName + '" permissions in the room "' + userRoom.name + '" in home "' + home.name + '"', EDIT_USER_PERMISSIONS, 'info');
+        userRoom.events.push(_event);
+        await home.save();
         await user.save();
         res.json(user);
     } catch (e) {
@@ -231,8 +230,6 @@ export const getConnectedUserHomesId = async (req,res) => {
     }
 }
 
-
-
 export const getUserHomesId = async (req,res) => {
     try {
         let user = await User.findById(req.params.userId);
@@ -240,7 +237,7 @@ export const getUserHomesId = async (req,res) => {
         res.json(homesId)       
     } catch (e) {
         res.send(e)
-    }
+    }let roomId;
 }
 
 export const getConnectedUserSocketRooms = async (req,res) => {
@@ -254,32 +251,35 @@ export const getConnectedUserSocketRooms = async (req,res) => {
     }
 }
 
-
 // add a new user to an existing room with permission affectation
 export const addUserToRoom = async (req,res) => {
     try {
-        console.log("addUserToRoom");
+        console.log("------------------ addUserToRoom ------------------------");
         let home = await Home.findById(req.body.homeId)
+        let user = await User.findById(req.params.userId)
         let room = home.rooms.id(req.body.roomId)
         let roomUsers = room.users;
         roomUsers.push(req.params.userId);
-        await home.save();
-        
-        let user = await User.findById(req.params.userId)
+        let notification = new Notification();
+        initNotification(notification, req.body.homeId, req.body.roomId, req.params.userId, '', '', '', 'You are added to room "' + room.name + '" at home "' + home.name + '"', 'You have been added to ' + room.name, ADD_USER_ROOM,'info');
+        let _event = new _Event();
+        let userEvent = await User.findById(req.userId);
+        initEvent(_event, home._id, room._id, req.userId, userEvent.firstName + ' ' + userEvent.lastName, '', '', '','You added "' + user.firstName + ' ' + user.lastName + '" to the room "' + room.name + '" in home "' + home.name + '"', ADD_USER_ROOM, 'info');
+        room.events.push(_event);
         user.rooms.push(req.body); 
         user.socketRooms.push(req.body.roomId)      
         if (user.homes.indexOf(req.body.homeId)===-1){
             user.homes.push(req.body.homeId);
             user.socketRooms.push(req.body.homeId);
         }
-        await user.save();        
+        user.notifications.push(notification);
+        await home.save();
+        await user.save();
         res.json(user)
     } catch (e) {
         res.send(e)
     }
 }
-
-
 
 //get the users that don't have the access to a specific room
 export const getUsersNonInRoom = async (req,res) => {
@@ -321,7 +321,77 @@ export const changeUserAccountPassword = async (req, res) => {
     }
 }
 
+function deleteRoomInUserFct(home, reqRoomId, user, userEvent){
+    console.log("-------------------------- deleteRoomInUserFct ----------------------------")
+    user.socketRooms.pull(reqRoomId)
+    let homeNumber = 0;
+    let roomId;
+    user.rooms.forEach(room => {
+        if(room.roomId.toString() == reqRoomId.toString())
+            roomId = room._id  ;
+        if(room.homeId.toString()== home._id.toString())
+            homeNumber ++;
+    });
+    if (homeNumber < 2) {
+        user.homes.pull(home._id)
+        user.socketRooms.pull(home._id)
+    }
+    user.rooms.pull(roomId);
+    let userRoom = home.rooms.id(reqRoomId);
+    
+    let notification = new Notification();
+    initNotification(notification, home._id, userRoom._id, user._id, '', '', '','You have been removed from the room "' + userRoom.name + '" in home "' + home.name + '"', 'You have been removed from ' + userRoom.name, DELETE_USER_ROOM, 'warning');
+    let _event = new _Event();
+    console.log(notification);
+    initEvent(_event, home._id, userRoom._id, userEvent._id, userEvent.firstName + ' ' + userEvent.lastName, '', '', '','You removed "' + user.firstName + ' ' + user.lastName + '" from the room "' + userRoom.name + '" in home "' + home.name + '"', DELETE_USER_ROOM, 'warning');
+    console.log(_event);
+    userRoom.events.push(_event);
+    user.notifications.push(notification);    
+    console.log('------------------------------------ userRoom.events -----------------------------------');
+    console.log(userRoom.events);
+}
 
+function deleteUserInRoomFct(home, roomId, userId){
+    console.log("-------------------------- deleteUserInRoomFct ----------------------------");
+        let room =  home.rooms.id(roomId);
+        console.log(room);
+        room.users.pull(userId);
+        console.log(room);
+        console.log("++++++++++++++++++++ done +++++++++++++++++++");
+
+}
+
+function initNotification(notification, homeId, roomId, userId, serverId, beaconId, objectId,  message, resume, type, category){
+    console.log("-------------------------- initNotification ----------------------------")
+    notification.homeId = homeId; 
+    notification.roomId = roomId;
+    notification.userId = userId;
+    notification.serverId = serverId; 
+    notification.beaconId = beaconId;
+    notification.objectId = objectId;
+    notification.message =message; 
+    notification.resume = resume;
+    notification.type = type; 
+    notification.category = category;
+    let date = new Date();
+    notification.date = date;
+}
+
+function initEvent(event, homeId, roomId, userId, userName, serverId, beaconId, objectId,  message, type, category){
+    console.log("-------------------------- initEvent ----------------------------")
+    event.homeId = homeId; 
+    event.roomId = roomId;
+    event.userId = userId;
+    event.userName = userName;
+    event.serverId = serverId; 
+    event.beaconId = beaconId;
+    event.objectId = objectId;
+    event.message =message; 
+    event.type = type; 
+    event.category = category;
+    let date = new Date();
+    event.date = date;
+}
 function sendAuthError(res, msg) {
     return res.json({status: 401, message: msg});
 }
