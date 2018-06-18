@@ -22,5 +22,9 @@ export const ObjectSchema = new Schema({
     max_threshold: {
         type: Number
     },
+    kind: {
+        type: String
+    },
     measures: [MeasureSchema]
+
 });
