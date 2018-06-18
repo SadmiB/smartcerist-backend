@@ -22,7 +22,7 @@ export const getUsers = async (req, res) => {
 
 export const addUser = async (req, res) =>{
     let newUser = new User(req.body);
-    newUser.socketRooms.push(newUser); 
+    newUser.socketRooms.push(newUser._id); 
     console.log("newUser._id");
     console.log(newUser._id);
     try {
@@ -205,11 +205,11 @@ export const updateUserRoomPermission = async (req,res ) => {
         let home = await Home.findOne({_id: homeId});
         let userRoom = home.rooms.id(req.params.roomId);
         let notification = new Notification()
-        initNotification(notification, homeId, req.params.roomId, req.params.userId, '','', '', 'you permission are set to "' + req.body.permission + '" in room "' + userRoom.name + '" in home "' + home.name + '"', 'Change your permissions in ' + userRoom.name, EDIT_USER_PERMISSIONS, 'info');
+        initNotification(notification, homeId, req.params.roomId, req.params.userId, '','', '', 'Your permissions are set to "' + req.body.permission + '" in room "' + userRoom.name + '" in home "' + home.name + '"', 'Change your permissions in ' + userRoom.name, EDIT_USER_PERMISSIONS, 'info');
         user.notifications.push(notification);
         let _event = new _Event();
         let userEvent = await User.findById(req.userId);
-        initEvent(_event, home._id, userRoom._id, req.userId, userEvent.firstName + ' ' + userEvent.lastName, '', '', '','You edited "' + user.firstName + ' ' + user.lastName + '" permissions in the room "' + userRoom.name + '" in home "' + home.name + '"', EDIT_USER_PERMISSIONS, 'info');
+        initEvent(_event, home._id, userRoom._id, req.userId, userEvent.firstName + ' ' + userEvent.lastName, '', '', '', '"'+userEvent.firstName +'" edited "' + user.firstName + ' ' + user.lastName + '" permissions in the room "' + userRoom.name + '" in home "' + home.name + '"', EDIT_USER_PERMISSIONS, 'info');
         userRoom.events.push(_event);
         await home.save();
         await user.save();
@@ -264,7 +264,7 @@ export const addUserToRoom = async (req,res) => {
         initNotification(notification, req.body.homeId, req.body.roomId, req.params.userId, '', '', '', 'You are added to room "' + room.name + '" at home "' + home.name + '"', 'You have been added to ' + room.name, ADD_USER_ROOM,'info');
         let _event = new _Event();
         let userEvent = await User.findById(req.userId);
-        initEvent(_event, home._id, room._id, req.userId, userEvent.firstName + ' ' + userEvent.lastName, '', '', '','You added "' + user.firstName + ' ' + user.lastName + '" to the room "' + room.name + '" in home "' + home.name + '"', ADD_USER_ROOM, 'info');
+        initEvent(_event, home._id, room._id, req.userId, userEvent.firstName + ' ' + userEvent.lastName, '', '', '','"'+userEvent.firstName+'" added "' + user.firstName + ' ' + user.lastName + '" to the room "' + room.name + '" in home "' + home.name + '"', ADD_USER_ROOM, 'info');
         room.events.push(_event);
         user.rooms.push(req.body); 
         user.socketRooms.push(req.body.roomId)      
@@ -343,7 +343,7 @@ function deleteRoomInUserFct(home, reqRoomId, user, userEvent){
     initNotification(notification, home._id, userRoom._id, user._id, '', '', '','You have been removed from the room "' + userRoom.name + '" in home "' + home.name + '"', 'You have been removed from ' + userRoom.name, DELETE_USER_ROOM, 'warning');
     let _event = new _Event();
     console.log(notification);
-    initEvent(_event, home._id, userRoom._id, userEvent._id, userEvent.firstName + ' ' + userEvent.lastName, '', '', '','You removed "' + user.firstName + ' ' + user.lastName + '" from the room "' + userRoom.name + '" in home "' + home.name + '"', DELETE_USER_ROOM, 'warning');
+    initEvent(_event, home._id, userRoom._id, userEvent._id, userEvent.firstName + ' ' + userEvent.lastName, '', '', '','"'+userEvent.firstName+'" removed "' + user.firstName + ' ' + user.lastName + '" from the room "' + userRoom.name + '" in home "' + home.name + '"', DELETE_USER_ROOM, 'warning');
     console.log(_event);
     userRoom.events.push(_event);
     user.notifications.push(notification);    

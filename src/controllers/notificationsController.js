@@ -28,6 +28,7 @@ export const getAllNotifications = async (req ,res) => {
         console.log('--------------- getAllNotifications ----------------');
         let user = await User.findById(req.userId)
         let notifications = user.notifications;
+        notifications.reverse();
         console.log(notifications);
         res.json(notifications);
     } catch (error) {
