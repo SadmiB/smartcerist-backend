@@ -414,3 +414,13 @@ export const addHomeRule = async (req, res) => {
         res.send(error)
     }
 }
+
+export const getHomeRule = async (req, res) => {
+    try {
+        let home = await Home.findById(req.params.homeId)
+        let rules = home.rules
+        res.json(rules)
+    } catch (error) {
+        res.send(error)
+    }
+}
