@@ -2,6 +2,7 @@ import mongoose  from "mongoose";
 import { RoomSchema } from "./roomsModel";
 import { UserSchema } from "./usersModel";
 import { ServerSchema } from "./serversModel";
+import { RuleSchema } from "./rulesModel";
 
 const Schema = mongoose.Schema
 
@@ -48,4 +49,5 @@ export const HomeSchema = new Schema({
     },
     servers: [Schema.Types.ObjectId],
     rooms: [RoomSchema],
+    rules: [RuleSchema]
 });

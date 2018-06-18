@@ -18,6 +18,8 @@ import {
     getConnectedUserRooms,
     getConnectedUserRoomsIds,
     getConnectedUserSocketRooms,
+    addHomeRule,
+    getHomeRule
     // getRoomObjects
 } from '../controllers/homesController'
 
@@ -72,6 +74,10 @@ const homesRoutes = (app) => {
     app.route('/:homeId/rooms/:roomId/objects/:objectId')  
     .post(addRoomObject)
     .delete(deleteRoomObject)
+
+    app.route('/:homeId/rules')
+    .get(getHomeRule)
+    .post(addHomeRule)
 }
 
 export default homesRoutes;
