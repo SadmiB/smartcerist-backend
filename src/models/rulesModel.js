@@ -3,7 +3,7 @@ import {ConditionSchema} from 'conditionsModel'
 import {ActionSchema} from 'actionsModel'
 
 const schema = mongoose.schema; 
-export const ConditionSchema = new schema ({
+export const RuleSchema = new schema ({
     name : {
         type : String
     },
