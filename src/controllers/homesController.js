@@ -35,13 +35,6 @@ export const getUserHomes = async (req, res) => {
         let user = await User.findById(req.userId)
         let homesIds = await user.homes
         let homes = await Home.find({_id: {$in: homesIds}}).populate('owner')
-        homes.forEach(home => {
-            if(home.owner.toString() == req.userId.toString()){
-                home.permission = "owner"
-            }else{
-                home.permission="user"
-            }            
-        });
         res.json(homes)
     } catch (error) {
         res.send(error) 
