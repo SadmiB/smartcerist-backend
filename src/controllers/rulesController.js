@@ -5,22 +5,25 @@ import { RuleSchema } from "../models/rulesModel";
 const Home = mongoose.model('Home', HomeSchema);
 const Rule = mongoose.model('Rule', RuleSchema);
 
-export const getHomeRules = async (req,res) => {
+
+export const addHomeRule = async (req, res) => {
     try {
-        let home = await Home.findOne({_id : req.params.homeId});
-        res.json(home.rules);
+        let newHome = await Home.findById(req.params.homeId)  
+        let rule = new Rule(req.body)
+        newHome.rules.push(rule)
+        let savedHome = await newHome.save()
+        res.json(savedHome)
     } catch (error) {
-        res.send(error);
+        res.send(error)
     }
 }
 
-export const addHomeRule = async (req,res) => {
+export const getHomeRules = async (req, res) => {
     try {
-        let home = await Home.findOne({_id : req.params.homeId});
-        let rule = new Rule(req.body);
-        home.rules.push(room);
-        await home.save()
-        res.json(home.rules);
+        console.log('------------ getHomeRules -----------------')
+        let home = await Home.findById(req.params.homeId)
+        let rules = home.rules
+        res.json(rules)
     } catch (error) {
         res.send(error)
     }
@@ -28,6 +31,7 @@ export const addHomeRule = async (req,res) => {
 
 export const getHomeRule = async (req, res) => {
     try {
+        console.log('------------ getHomeRule -----------------')
         let home = await Home.findById(req.params.homeId)        
         let rule = await home.rules.id(req.params.ruleId)
         res.json(rule)

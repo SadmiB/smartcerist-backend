@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import {ActionSchema} from './actionsModel'
+import {ConditionSchema} from './conditionsModel'
 
 const Schema = mongoose.Schema
 export const RuleSchema = new Schema ({

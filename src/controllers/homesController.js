@@ -403,24 +403,3 @@ function deleteUserInRoomFct(home, roomId, userId){
 }
 
 
-export const addHomeRule = async (req, res) => {
-    try {
-        let newHome = await Home.findById(req.params.homeId)  
-        let rule = new Rule(req.body)
-        newHome.rules.push(rule)
-        let savedHome = await newHome.save()
-        res.json(savedHome)
-    } catch (error) {
-        res.send(error)
-    }
-}
-
-export const getHomeRule = async (req, res) => {
-    try {
-        let home = await Home.findById(req.params.homeId)
-        let rules = home.rules
-        res.json(rules)
-    } catch (error) {
-        res.send(error)
-    }
-}
