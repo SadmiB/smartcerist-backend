@@ -46,7 +46,7 @@ export const updateHomeRule = async (req, res) => {
         let rule = await home.rules.id(req.params.ruleId)
         rule.set(req.body)
         let savedHome = await home.save()
-        res.json(savedHome)
+        res.json(savedHome.rules)
     } catch (error) {
         res.send(error)
     }
