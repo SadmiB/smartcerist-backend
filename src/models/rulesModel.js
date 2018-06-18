@@ -11,10 +11,10 @@ export const RuleSchema = new schema ({
         type : String
     },
     actions : {
-        type : [Schema.Types.ObjectId]
+        type : [ActionSchema]
     },
     conditions : {
-        type : [Schema.Types.ObjectId]
+        type : [ConditionSchema]
     },
     state: {
         type : Boolean,
