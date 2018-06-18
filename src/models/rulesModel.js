@@ -1,4 +1,6 @@
 import mongoose from 'mongoose';
+import {ActionSchema} from './actionsModel'
+import {ConditionSchema} from './conditionsModel'
 
 const Schema = mongoose.Schema
 export const RuleSchema = new Schema ({
@@ -9,10 +11,10 @@ export const RuleSchema = new Schema ({
         type : String
     },
     actions : {
-        type : [Schema.Types.ObjectId]
+        type : [ActionSchema]
     },
     conditions : {
-        type : [Schema.Types.ObjectId]
+        type : [ConditionSchema]
     },
     state: {
         type : Boolean,

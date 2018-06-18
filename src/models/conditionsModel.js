@@ -1,8 +1,8 @@
 import mongoose from 'mongoose';
 
-const schema = mongoose.schema; 
+const Schema = mongoose.Schema 
 
-export const ConditionSchema = new schema ({
+export const ConditionSchema = new Schema ({
     name : {
         type : String
     },

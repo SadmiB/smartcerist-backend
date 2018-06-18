@@ -1,8 +1,7 @@
 import mongoose from 'mongoose';
 
-const schema = mongoose.schema; 
-
-export const ActionSchema = new schema ({
+const Schema = mongoose.Schema
+export const ActionSchema = new Schema ({
     name : {
         type : String
     },

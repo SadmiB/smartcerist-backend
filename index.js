@@ -19,6 +19,7 @@ import iotRoutes from './src/routes/api';
 import camerasRoutes from './src/routes/camerasRoutes';
 import _router from './src/routes/uploadRoutes'
 import authRoutes from './src/routes/authRoutes';
+import rulesRoutes from './src/routes/rulesRoutes'
 var appRoutes = require('./src/routes/uploadRoutes');
 
 
@@ -103,6 +104,7 @@ if (cluster.isMaster) {
         camerasRoutes(app);
         iotRoutes(app);
         authRoutes(app);
+        rulesRoutes(app);
 
         app.use('/', appRoutes);
 
