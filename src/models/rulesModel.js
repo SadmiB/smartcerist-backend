@@ -1,9 +1,7 @@
 import mongoose from 'mongoose';
-import {ConditionSchema} from 'conditionsModel'
-import {ActionSchema} from 'actionsModel'
 
-const schema = mongoose.schema; 
-export const ConditionSchema = new schema ({
+const Schema = mongoose.Schema
+export const RuleSchema = new Schema ({
     name : {
         type : String
     },

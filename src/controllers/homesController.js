@@ -2,11 +2,13 @@ import mongoose from "mongoose";
 import { RoomSchema } from "../models/roomsModel";
 import { HomeSchema } from "../models/homesModel";
 import { UserSchema } from "../models/usersModel";
+import { RuleSchema } from "../models/rulesModel";
 import { PermissionSchema } from "../models/permissionsModel";
 
 const Home = mongoose.model('Home', HomeSchema)
 const Room = mongoose.model('Room', RoomSchema)
 const User = mongoose.model('User', UserSchema)
+const Rule = mongoose.model('Rule', RuleSchema)
 const Permission = mongoose.model('Permissioin', PermissionSchema)
 
 
@@ -149,7 +151,7 @@ export const addHomeRoom = async (req, res) => {
         let room = new Room(req.body);
         room.users.push(newHome.owner)
         newHome.rooms.push(room)
-        let savedRoom = await newHome.save()
+        let savedHome = await newHome.save()
 
         let user = await User.findById(newHome.owner);
         let permission = new Permission();
@@ -159,7 +161,7 @@ export const addHomeRoom = async (req, res) => {
         user.rooms.push(permission);
         user.socketRooms.push(room._id);
         await user.save();
-        res.json(savedRoom)
+        res.json(savedHome)
     } catch(error) {
         res.send(error)
     }
@@ -405,4 +407,17 @@ function deleteUserInRoomFct(home, roomId, userId){
         console.log(room);
         room.users.pull(userId);
         console.log(room);
+}
+
+
+export const addHomeRule = async (req, res) => {
+    try {
+        let newHome = await Home.findById(req.params.homeId)  
+        let rule = new Rule(req.body)
+        newHome.rules.push(rule)
+        let savedHome = await newHome.save()
+        res.json(savedHome)
+    } catch (error) {
+        res.send(error)
+    }
 }
