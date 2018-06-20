@@ -22,8 +22,8 @@ const ressourcesDiscovery = (req, res) => {
 
   try {
       console.log('GET core...');  
-      const requ = coap.request(coapConnection);
-      
+      const requ = coap.request(coapConnection)
+      requ.setOption('Block2', new Buffer([0x2]))
       requ.on('response', function(resp) {
         resp.pipe(process.stdout);          
         var textResp = resp.payload;
@@ -46,9 +46,9 @@ const getObjectValue = (req, res) => {
   }
 
   try {
-    console.log('GET ', req.params.path2);  
-    const requ = coap.request(coapConnection);
-   
+    console.log('GET ', req.params.path2)
+    const requ = coap.request(coapConnection)
+    requ.setOption('Block2', new Buffer([0x2]))
     requ.on('response', function(resp) {
       resp.pipe(process.stdout);
       var textResp = resp.payload.toString('utf8');
@@ -71,7 +71,8 @@ const updateObjectValue = (req, res) => {
   try {
     console.log('GET ', req.params.path2);  
     const requ = coap.request(coapConnection)
-   requ.write(new Buffer(req.body.payload))
+    requ.write(new Buffer(req.body.payload))
+    requ.setOption('Block2', new Buffer([0x2]))
     requ.on('response', function(resp) {
       resp.pipe(process.stdout);
       var textResp = resp.payload.toString('utf8');
