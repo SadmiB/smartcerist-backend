@@ -30,13 +30,14 @@ const rulesRoutes = (app) => {
     .get(getActionsRule)
     .post(addActionRule)
 
-    app.route('/homes/:homeId/rules/:ruleId/:conditionId')
+    app.route('/homes/:homeId/rules/:ruleId/conditions/:conditionId')
     .put(updateConditionRule)
     .delete(removeConditionRule)
 
-    app.route('/homes/:homeId/rules/:ruleId/:actionId')
+    app.route('/homes/:homeId/rules/:ruleId/actions/:actionId')
     .put(updateActionRule)
     .delete(removeActionRule)
+    
 }
 
 export default rulesRoutes;

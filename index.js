@@ -91,6 +91,7 @@ if (cluster.isMaster) {
 
         // mongodb connection
         mongoose.Promise = global.Promise;
+        //mongoose.connect('mongodb://localhost/scdb');
         mongoose.connect('mongodb://smart:smart@localhost/scdb');
 
         usersRoutes(app);
