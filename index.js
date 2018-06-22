@@ -1,7 +1,6 @@
 import express from 'express';
 import bodyParser from 'body-parser';
 import mongoose from 'mongoose';
-import jwt from 'jsonwebtoken';
 import path from 'path';
 import Stream from 'node-rtsp-stream';
 
@@ -15,12 +14,11 @@ import objectsRoutes from './src/routes/objectsRoutes';
 import serversRoutes from './src/routes/serversRoutes';
 import { UserSchema } from './src/models/usersModel';
 import eventsRoutes from './src/routes/eventsRoutes';
-import iotRoutes from './src/routes/api';
+import iotRoutes from './src/routes/iotRoutes';
 import camerasRoutes from './src/routes/camerasRoutes';
-import _router from './src/routes/uploadRoutes'
 import authRoutes from './src/routes/authRoutes';
 import rulesRoutes from './src/routes/rulesRoutes'
-var appRoutes = require('./src/routes/uploadRoutes');
+import appRoutes  from './src/routes/uploadRoutes';
 
 
 
@@ -40,7 +38,7 @@ if (cluster.isMaster) {
    ///////////////////////// Streaming //////////////////////////////
    let stream = new Stream({
         name: 'name',
-        streamUrl: 'rtsp://admin:smartBuilding2017@192.168.8.102:554/cam/realmonitor?channel=1&subtype=0',
+        streamUrl: 'rtsp://admin:smartBuilding2017@10.0.88.122:554/cam/realmonitor?channel=1&subtype=0',
         wsPort: 9999
     });
 
