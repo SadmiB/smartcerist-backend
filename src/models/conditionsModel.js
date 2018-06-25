@@ -9,6 +9,9 @@ export const ConditionSchema = new Schema ({
     description : {
         type : String
     },
+    type : {
+        type: String,
+    },
     server : {
         type : Schema.Types.ObjectId
     },

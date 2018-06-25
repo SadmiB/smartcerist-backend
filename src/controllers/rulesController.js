@@ -102,10 +102,16 @@ export const addActionRule = async (req, res) => {
 
 export const addConditionRule = async (req, res) => {
     try {
+        console.log('------------ addConditionRule -------------------');
+        console.log(req.body);
         let home =  await Home.findById(req.params.homeId);
+        console.log('------------ addConditionRule 1-------------------');
         let rule = home.rules.id(req.params.ruleId);
+        console.log('------------ addConditionRule 2-------------------');
         rule.conditions.push(req.body);
+        console.log('------------ addConditionRule 3-------------------');
         await home.save();
+        console.log('------------ addConditionRule 4-------------------');
         res.json(home);
     } catch (error) {
         res.send(error);
