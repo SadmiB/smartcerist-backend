@@ -304,7 +304,7 @@ export const changeUserAccountPassword = async (req, res) => {
         console.log(req.userId)
         let user = await User.findOne({_id: req.userId})
         console.log(user.password)
-        if (bcryptjs.compareSync(user.password, req.body.currentPassword)) {
+        if (bcryptjs.compareSync(req.body.currentPassword, user.password)) {
             const salt = bcryptjs.genSaltSync(10)
             let hashed_password =  bcryptjs.hashSync(req.body.password, salt)
             user.password = hashed_password
