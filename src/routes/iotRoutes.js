@@ -3,10 +3,10 @@ const coap = require('coap');
 
 const iotRoutes = (app) => {
 
-  app.route('/api/core')
+  app.route('/api/:ip/core')
   .get(ressourcesDiscovery)
 
-  app.route('/api/:path1/:path2')
+  app.route('/api/:ip/:path1/:path2')
   .get(getObjectValue)
   .put(updateObjectValue)
   
@@ -14,7 +14,7 @@ const iotRoutes = (app) => {
 
 const ressourcesDiscovery = (req, res) => {
   var coapConnection = {
-    host: req.param('ip'),
+    host: req.params.ip,
     pathname: '/.well-known/core',
     method: 'GET',
     confirmable: true
@@ -37,9 +37,9 @@ const ressourcesDiscovery = (req, res) => {
 }
 
 const getObjectValue = (req, res) => {
-  console.log("ip: ", req.param('ip'))
+  console.log("ip: ", req.params.ip)
   var coapConnection = {
-    host: req.param('ip'),
+    host: req.params.ip,
     pathname: '/'+ req.params.path1 +'/'+req.params.path2,
     method: 'GET',
     confirmable: true
@@ -62,7 +62,7 @@ const getObjectValue = (req, res) => {
 
 const updateObjectValue = (req, res) => {
   var coapConnection = {
-    host: req.param('ip'),
+    host: req.params.ip,
     pathname: '/'+ req.params.path1 +'/'+req.params.path2,
     method: 'PUT',
     confirmable: true

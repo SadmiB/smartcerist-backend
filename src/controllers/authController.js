@@ -64,6 +64,6 @@ function sendToken(user, res) {
 
 
 function sendAuthError(res, msg) {
-    return res.json({status: 401, message: msg});
+    return res.send({status: 401, message: msg});
 }
 

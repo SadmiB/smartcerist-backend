@@ -105,6 +105,83 @@ if (cluster.isMaster) {
         authRoutes(app);
         rulesRoutes(app);
 
+
+        // const getObjectValue = (ip, path, _ip, _path, cb) => {
+        //     console.log("ip: ", ip)
+        //     var coapConnection = {
+        //       host: ip,
+        //       pathname: '/'+ path,
+        //       method: 'GET',
+        //       confirmable: true
+        //     }
+          
+        //     try {
+        //       console.log('GET ', path)
+        //       const requ = coap.request(coapConnection)
+        //       requ.setOption('Block2', new Buffer([0x2]))
+        //       requ.on('response', function(resp) {
+        //         resp.pipe(process.stdout);
+        //         var textResp = resp.payload.toString('utf8');
+        //         if (textResp > "500") {
+        //             cb(_ip, _path, "0")
+        //         } else {
+        //             cb(_ip, _path, "1")
+        //         }
+        //       });
+        //       requ.end();
+        //     } catch (error) {
+        //       console.log(error);
+        //     }
+        // }
+
+        // const updateObjectValue = (ip, path, val) => {
+        //     var coapConnection = {
+        //         host: ip,
+        //         pathname: '/'+ path,
+        //         method: 'PUT',
+        //         confirmable: true
+        //     }
+            
+        //     try {
+        //         console.log('GET ', path);  
+        //         const requ = coap.request(coapConnection)
+        //         requ.write(new Buffer(val))
+        //         requ.setOption('Block2', new Buffer([0x2]))
+        //         requ.on('response', function(resp) {
+        //         resp.pipe(process.stdout);
+        //         var textResp = resp.payload.toString('utf8');
+        //         res.send(textResp);
+        //         });
+        //         requ.end();
+        //     } catch (error) {
+        //         console.log(error);
+        //     }
+        // }
+
+        // const getObjectValue = (ip, path) => {
+        //     console.log("ip: ", ip)
+        //     var coapConnection = {
+        //       host: ip,
+        //       pathname: '/'+ path,
+        //       method: 'GET',
+        //       confirmable: true
+        //     }
+          
+        //     try {
+        //       console.log('GET ', path)
+        //       const requ = coap.request(coapConnection)
+        //       requ.setOption('Block2', new Buffer([0x2]))
+        //       requ.on('response', function(resp) {
+        //         resp.pipe(process.stdout);
+        //         var textResp = resp.payload.toString('utf8');
+
+        //       });
+        //       requ.end();
+        //     } catch (error) {
+        //       console.log(error);
+        //     }
+        // }
+
         app.use('/', appRoutes);
 
         //serving static files
