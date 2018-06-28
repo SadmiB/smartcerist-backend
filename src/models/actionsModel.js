@@ -17,7 +17,7 @@ export const ActionSchema = new Schema ({
     object : {
         type : Schema.Types.ObjectId
     },
-    condition : {
+    action : {
         type : String
     }
 })

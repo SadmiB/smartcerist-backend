@@ -20,5 +20,8 @@ export const ConditionSchema = new Schema ({
     },
     condition : {
         type : String
-    }
+    },
+    value : {
+        type: String
+    },
 })

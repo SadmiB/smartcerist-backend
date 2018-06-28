@@ -8,9 +8,14 @@ const Rule = mongoose.model('Rule', RuleSchema);
 
 export const addHomeRule = async (req, res) => {
     try {
+        console.log('------------ addHomeRule -----------------')
+        console.log(req.params.homeId)
         let newHome = await Home.findById(req.params.homeId)  
+        console.log('------------ addHomeRule1 -----------------')
         let rule = new Rule(req.body)
+        console.log(rule)
         newHome.rules.push(rule)
+        console.log(newHome.rules)
         let savedHome = await newHome.save()
         res.json(savedHome)
     } catch (error) {
@@ -109,6 +114,7 @@ export const addConditionRule = async (req, res) => {
 
 export const removeConditionRule = async (req, res) => {
     try {
+        console.log('---------------- removeConditionRule -----------------------');
         let home =  await Home.findById(req.params.homeId);
         let rule = home.rules.id(req.params.ruleId);
         rule.conditions.pull(req.params.conditionId);
@@ -121,6 +127,7 @@ export const removeConditionRule = async (req, res) => {
 
 export const removeActionRule = async (req, res) => {
     try {
+        console.log('---------------- removeActionRule -----------------------');
         let home =  await Home.findById(req.params.homeId);
         let rule = home.rules.id(req.params.ruleId);
         rule.actions.pull(req.params.actionId);
